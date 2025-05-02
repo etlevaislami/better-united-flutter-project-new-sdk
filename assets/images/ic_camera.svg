@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="54px" version="1.1" viewBox="0 0 54 54"
+    width="54px" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <filter id="filter_1">
+            <feColorMatrix in="SourceGraphic" type="matrix"
+                values="0 0 0 0 0.3529412 0 0 0 0 0.3529412 0 0 0 0 0.3529412 0 0 0 1 0" />
+        </filter>
+        <rect height="54" id="artboard_1" width="54" />
+        <clipPath id="clip_1">
+            <use clip-rule="evenodd" xlink:href="#artboard_1" />
+        </clipPath>
+    </defs>
+    <g clip-path="url(#clip_1)" id="2-ProtonsButtonsCamera">
+        <path
+            d="M27 54C41.9117 54 54 41.9117 54 27C54 12.0883 41.9117 0 27 0C12.0883 0 0 12.0883 0 27C0 41.9117 12.0883 54 27 54Z"
+            fill="#FECF43" fill-rule="evenodd" id="Oval" stroke="none" />
+        <g id="1-AtomsIconsCamera" transform="translate(13 15)">
+            <g filter="url(#filter_1)" id="photo-camera-interface-symbol-for-button">
+                <g id="Shape-2">
+                    <path
+                        d="M19.177 13.4061C19.177 15.9182 17.079 17.9618 14.5 17.9618C11.921 17.9618 9.8238 15.9182 9.8238 13.4061C9.8238 10.894 11.921 8.85048 14.5 8.85048C17.079 8.85048 19.177 10.8948 19.177 13.4061ZM29 6.93733L29 19.8765C29 21.6014 27.5642 23 25.7933 23L3.20672 23C1.43581 23 0 21.6014 0 19.8765L0 6.93733C0 5.21237 1.43581 3.81381 3.20672 3.81381L7.15099 3.81381L7.15099 2.73308C7.15099 1.22364 8.40642 0 9.95688 0L19.0431 0C20.5936 0 21.849 1.22364 21.849 2.73308L21.849 3.81303L25.7933 3.81303C27.5642 3.81381 29 5.21237 29 6.93733ZM21.582 13.4061C21.582 9.60247 18.405 6.50784 14.5 6.50784C10.5958 6.50784 7.41875 9.60247 7.41875 13.4061C7.41875 17.2098 10.5958 20.3044 14.5 20.3044C18.405 20.3044 21.582 17.2098 21.582 13.4061Z"
+                        fill="#000000" id="Shape" stroke="none" />
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,1 @@
+enum RankingType { weekly, seasonal }

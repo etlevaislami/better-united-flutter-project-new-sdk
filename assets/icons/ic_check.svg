@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="26px" version="1.1" viewBox="0 0 26 26"
+    width="26px" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <rect height="26" id="artboard_1" width="26" />
+        <clipPath id="clip_1">
+            <use clip-rule="evenodd" xlink:href="#artboard_1" />
+        </clipPath>
+    </defs>
+    <g clip-path="url(#clip_1)" id="1-AtomsIconsCheck">
+        <path
+            d="M13 26C20.1797 26 26 20.1797 26 13C26 5.8203 20.1797 0 13 0C5.8203 0 0 5.8203 0 13C0 20.1797 5.8203 26 13 26Z"
+            fill="#BAD450" id="Oval" stroke="none" />
+        <g id="Group-2"
+            transform="matrix(0.70710677 0.70710677 -0.70710677 0.70710677 15.081978 6.543779)">
+            <path d="M0.26463 10.2801L5.79915 10.2138" fill="none" fill-rule="evenodd" id="Path-6"
+                stroke="#FFFFFF" stroke-linecap="round" stroke-width="2" />
+            <path d="M5.79915 -2.18893e-08L5.79915 10.2138" fill="none" fill-rule="evenodd"
+                id="Path-6" stroke="#FFFFFF" stroke-linecap="round" stroke-width="2" />
+        </g>
+    </g>
+</svg>

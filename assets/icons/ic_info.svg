@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="20px" version="1.1" viewBox="0 0 20 20"
+    width="20px" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <rect height="20" id="artboard_1" width="20" />
+        <clipPath id="clip_1">
+            <use clip-rule="evenodd" xlink:href="#artboard_1" />
+        </clipPath>
+    </defs>
+    <g clip-path="url(#clip_1)" id="1-Protonsiconsactionic_info">
+        <g id="1-Protonsiconsactionic_info">
+            <g id="1-Protonsiconsactionic_info">
+                <g id="Icon-24px">
+                    <path d="M0 0L20 0L20 20L0 20L0 0Z" fill="none" fill-rule="evenodd" id="Shape"
+                        stroke="none" />
+                    <path
+                        d="M10 1.66667C5.4 1.66667 1.66667 5.4 1.66667 10C1.66667 14.6 5.4 18.3333 10 18.3333C14.6 18.3333 18.3333 14.6 18.3333 10C18.3333 5.4 14.6 1.66667 10 1.66667L10 1.66667ZM10.8333 14.1667L9.16667 14.1667L9.16667 9.16667L10.8333 9.16667L10.8333 14.1667L10.8333 14.1667ZM10.8333 7.5L9.16667 7.5L9.16667 5.83333L10.8333 5.83333L10.8333 7.5L10.8333 7.5Z"
+                        fill="#FFFFFF" fill-rule="evenodd" id="Shape" stroke="none" />
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

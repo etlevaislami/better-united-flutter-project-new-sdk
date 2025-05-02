@@ -1,0 +1,92 @@
+{
+  "project_info": {
+    "project_number": "701198425538",
+    "project_id": "better-united",
+    "storage_bucket": "better-united.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701198425538:android:f81383026ab6f25bf64a5b",
+        "android_client_info": {
+          "package_name": "nl.betterunited"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "701198425538-pvduig4nagji9ajq89osoc4n6afvv2cu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAv62iCWhxagJQDscLyDWYe-rsaRfpaEog"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "701198425538-pvduig4nagji9ajq89osoc4n6afvv2cu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "701198425538-2o3e9tmrb69jhknqd7aadbodk9solaiu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "nl.betterunited",
+                "app_store_id": "1644164331"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:701198425538:android:51bbbdbba1e38cd9f64a5b",
+        "android_client_info": {
+          "package_name": "nl.dtt.betterunited"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "701198425538-4olandrkdkla1g32heahcejmgr4m98oa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "nl.dtt.betterunited",
+            "certificate_hash": "8884e536df7edce90ef8410c39c9a5dd2699ad9c"
+          }
+        },
+        {
+          "client_id": "701198425538-pvduig4nagji9ajq89osoc4n6afvv2cu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAv62iCWhxagJQDscLyDWYe-rsaRfpaEog"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "701198425538-pvduig4nagji9ajq89osoc4n6afvv2cu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "701198425538-2o3e9tmrb69jhknqd7aadbodk9solaiu.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "nl.betterunited",
+                "app_store_id": "1644164331"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

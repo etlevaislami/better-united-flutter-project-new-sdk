@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg height="24px" version="1.1" viewBox="0 0 24 24" width="24px"
+    xmlns="http://www.w3.org/2000/svg">
+    <defs></defs>
+    <g id="ic_info_blue">
+        <g id="Group">
+            <path d="M-111 -2L-107 -2L-107 10L-111 10L-111 -2Z" fill="#FFFFFF" fill-rule="evenodd"
+                id="Rectangle" stroke="none" />
+            <g filter="url(#filter_1)" id="1-Protonsiconsactionic_info">
+                <g id="1-Protonsiconsactionic_info">
+                    <g id="Icon-24px">
+                        <path d="M-121 -8L-97 -8L-97 16L-121 16L-121 -8Z" fill="none"
+                            fill-rule="evenodd" id="Shape" stroke="none" />
+                        <path
+                            d="M-109 -6C-114.52 -6 -119 -1.52 -119 4C-119 9.52 -114.52 14 -109 14C-103.48 14 -99 9.52 -99 4C-99 -1.52 -103.48 -6 -109 -6L-109 -6ZM-108 9L-110 9L-110 3L-108 3L-108 9L-108 9ZM-108 1L-110 1L-110 -1L-108 -1L-108 1L-108 1Z"
+                            fill="#303440" fill-rule="evenodd" id="Shape" stroke="none" />
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,1 @@
+enum PublicPouleType { league, match }

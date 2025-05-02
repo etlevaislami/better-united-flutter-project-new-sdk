@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>701198425538-2o3e9tmrb69jhknqd7aadbodk9solaiu.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.701198425538-2o3e9tmrb69jhknqd7aadbodk9solaiu</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>701198425538-4olandrkdkla1g32heahcejmgr4m98oa.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyCAcUj95jjAymu0VtMDXkgpXe4XcWBnirw</string>
+	<key>GCM_SENDER_ID</key>
+	<string>701198425538</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>nl.betterunited</string>
+	<key>PROJECT_ID</key>
+	<string>better-united</string>
+	<key>STORAGE_BUCKET</key>
+	<string>better-united.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:701198425538:ios:12a65584fd7147bbf64a5b</string>
+</dict>
+</plist>

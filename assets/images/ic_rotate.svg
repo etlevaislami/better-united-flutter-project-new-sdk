@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="30px" version="1.1" viewBox="0 0 28 30"
+    width="28px" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <path d="M5.20089 9.05357L20.2009 9.05357L20.2009 28.0536L5.20089 28.0536L5.20089 9.05357Z"
+            id="path_1" />
+        <clipPath id="clip_1">
+            <use xlink:href="#path_1" />
+        </clipPath>
+    </defs>
+    <g id="rotatewhite-copy" transform="translate(0.5834961 0.5830078)">
+        <path
+            d="M0.200893 1.05357L26.2009 1.05357L26.2009 27.0536L0.200893 27.0536L0.200893 1.05357Z"
+            fill="#9E9E9E" fill-opacity="0" fill-rule="evenodd" id="Rectangle" stroke="none" />
+        <g id="Rectangle">
+            <g clip-path="url(#clip_1)">
+                <use fill="none" stroke="#FFFFFF" stroke-width="2.3333333" xlink:href="#path_1" />
+            </g>
+        </g>
+        <path d="M24.0887 14.0536C24.0887 14.0536 25.1482 4.76206 16.2009 4.05357" fill="none"
+            fill-rule="evenodd" id="Path-2" stroke="#FFFFFF" stroke-linecap="round"
+            stroke-width="1.1666666" />
+        <path d="M11 3.6069L16.7134 1.34886L16.2345 6.82275L11 3.6069Z" fill="#FFFFFF"
+            fill-rule="evenodd" id="Triangle" stroke="none" />
+    </g>
+</svg>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg height="24px" version="1.1" viewBox="0 0 24 24" width="24px"
+    xmlns="http://www.w3.org/2000/svg">
+    <g id="1-Protonsiconsactionic_date_range-Copy">
+        <g id="1-Protonsiconsactionic_date_range">
+            <g id="Icon-24px">
+                <path
+                    d="M9 11L7 11L7 13L9 13L9 11L9 11ZM13 11L11 11L11 13L13 13L13 11L13 11ZM17 11L15 11L15 13L17 13L17 11L17 11ZM19 4L18 4L18 2L16 2L16 4L8 4L8 2L6 2L6 4L5 4C3.89 4 3.01 4.9 3.01 6L3 20C3 21.1 3.89 22 5 22L19 22C20.1 22 21 21.1 21 20L21 6C21 4.9 20.1 4 19 4L19 4ZM19 20L5 20L5 9L19 9L19 20L19 20Z"
+                    fill="#838383" fill-rule="evenodd" id="Shape" stroke="none" />
+                <path d="M0 0L24 0L24 24L0 24L0 0Z" fill="none" fill-rule="evenodd" id="Shape"
+                    stroke="none" />
+            </g>
+        </g>
+    </g>
+</svg>

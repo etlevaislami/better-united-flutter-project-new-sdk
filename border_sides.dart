@@ -1,0 +1,4 @@
+
+class AppBorderSides {
+  AppBorderSides._();
+}

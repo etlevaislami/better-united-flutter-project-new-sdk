@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="24px" version="1.1" viewBox="0 0 24 24"
+    width="24px" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <filter id="filter_1">
+            <feColorMatrix in="SourceGraphic" type="matrix"
+                values="0 0 0 0 0.3529412 0 0 0 0 0.3529412 0 0 0 0 0.3529412 0 0 0 1 0" />
+        </filter>
+        <rect height="24" id="artboard_1" width="24" />
+        <clipPath id="clip_1">
+            <use clip-rule="evenodd" xlink:href="#artboard_1" />
+        </clipPath>
+    </defs>
+    <g clip-path="url(#clip_1)" id="ic_info_blue">
+        <g id="Group">
+            <path d="M10 6L14 6L14 18L10 18L10 6Z" fill="#FFFFFF" fill-rule="evenodd" id="Rectangle"
+                stroke="none" />
+            <g filter="url(#filter_1)" id="1-Protonsiconsactionic_info">
+                <g id="1-Protonsiconsactionic_info">
+                    <g id="Icon-24px">
+                        <path d="M0 0L24 0L24 24L0 24L0 0Z" fill="none" fill-rule="evenodd"
+                            id="Shape" stroke="none" />
+                        <path
+                            d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2L12 2ZM13 17L11 17L11 11L13 11L13 17L13 17ZM13 9L11 9L11 7L13 7L13 9L13 9Z"
+                            fill="#303440" fill-rule="evenodd" id="Shape" stroke="none" />
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

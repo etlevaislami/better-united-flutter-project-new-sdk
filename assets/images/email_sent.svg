@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg height="205px" version="1.1" viewBox="0 0 211 205" width="211px"
+    xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <filter color-interpolation-filters="sRGB" filterUnits="userSpaceOnUse" id="filter_1">
+            <feFlood flood-opacity="0" result="BackgroundImageFix" />
+            <feColorMatrix in="SourceAlpha" type="matrix"
+                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" />
+            <feOffset dx="0" dy="0" />
+            <feGaussianBlur stdDeviation="5" />
+            <feColorMatrix type="matrix"
+                values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0.101960786 0" />
+            <feBlend in2="BackgroundImageFix" mode="normal" result="effect0_dropShadow" />
+            <feBlend in="SourceGraphic" in2="effect0_dropShadow" mode="normal" result="shape" />
+        </filter>
+    </defs>
+    <g id="Group-3" transform="translate(5 5)">
+        <path
+            d="M97.5 195C151.348 195 195 151.348 195 97.5C195 43.6522 151.348 0 97.5 0C43.6522 0 0 43.6522 0 97.5C0 151.348 43.6522 195 97.5 195Z"
+            fill="#FFFFFF" fill-rule="evenodd" filter="url(#filter_1)" id="Oval" stroke="none" />
+        <g id="email-2" transform="translate(20.455233 40.847206)">
+            <g id="email"
+                transform="matrix(0.9961947 -0.08715574 0.08715574 0.9961947 -1.4305115E-06 13.103008)">
+                <path
+                    d="M146.707 94.3375C143.733 97.8985 139.327 99.9585 134.68 99.9602L15.6606 99.9602C11.0136 99.9585 6.6073 97.8985 3.63339 94.3375L61.0758 46.6066L67.0269 50.6675C71.9291 54.0412 78.4116 54.0412 83.3138 50.6675L89.2648 46.6066L146.707 94.3375Z"
+                    fill="#F7C93F" id="Path" stroke="none" />
+                <path
+                    d="M147.584 6.81017L89.2646 46.6066L83.3135 50.6675C78.4113 54.0412 71.9288 54.0412 67.0266 50.6675L61.0755 46.6066L2.75661 6.7475C5.69117 2.52723 10.5111 0.00695106 15.6609 0.000215481L134.68 0.000215481C139.853 -0.0270197 144.697 2.52898 147.584 6.81017Z"
+                    fill="#FECF43" id="Path" stroke="none" />
+                <g id="Group" transform="translate(0 6.7477956)">
+                    <path
+                        d="M61.0758 39.8588L3.63339 87.5897C1.28228 84.7871 -0.00412612 81.248 0.000278365 77.5938L0.000278365 8.87134C-0.0188077 5.70181 0.944013 2.60345 2.75661 0L61.0758 39.8588Z"
+                        fill="#FFDF7F" id="Path" stroke="none" />
+                    <path
+                        d="M150.34 8.87134L150.34 77.5938C150.344 81.248 149.058 84.7871 146.707 87.5897L89.2645 39.8588L147.584 0.0623773C149.387 2.64708 150.35 5.72231 150.34 8.87134Z"
+                        fill="#FFDF7F" id="Path" stroke="none" />
+                </g>
+            </g>
+        </g>
+        <g id="2-ProtonsButtonsAdd" transform="translate(131.6826 6.42475)">
+            <path
+                d="M33.8174 68.5752C52.8712 68.5752 68.3174 53.1291 68.3174 34.0752C68.3174 15.0214 52.8712 -0.42475 33.8174 -0.42475C14.7636 -0.42475 -0.682599 15.0214 -0.682599 34.0752C-0.682599 53.1291 14.7636 68.5752 33.8174 68.5752Z"
+                fill="#BAD450" id="Oval" stroke="none" />
+            <g id="Group-2"
+                transform="matrix(0.70710677 0.70710677 -0.70710677 0.70710677 38.862545 15.938336)">
+                <path d="M4.37809e-13 27.0164L17.9845 27.0164" fill="none" fill-rule="evenodd"
+                    id="Path-6" stroke="#FFFFFF" stroke-linecap="round" stroke-width="10" />
+                <path d="M17.9845 -2.18688e-08L17.9844 27.0164" fill="none" fill-rule="evenodd"
+                    id="Path-6" stroke="#FFFFFF" stroke-linecap="round" stroke-width="10" />
+            </g>
+        </g>
+    </g>
+</svg>

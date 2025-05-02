@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>212896725000-l56517fgva0p09h69o22gq8lgs943per.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.212896725000-l56517fgva0p09h69o22gq8lgs943per</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBmXADGH5WJq-ufcAIUedHG3Qr3kmXoJWI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>212896725000</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>nl.dtt.betterunited</string>
+	<key>PROJECT_ID</key>
+	<string>better-united--dev</string>
+	<key>STORAGE_BUCKET</key>
+	<string>better-united--dev.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:212896725000:ios:6739dac2e78d16abac79bd</string>
+</dict>
+</plist>

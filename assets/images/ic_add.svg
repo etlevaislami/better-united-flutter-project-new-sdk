@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="18px" version="1.1" viewBox="0 0 18 18"
+    width="18px" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <rect height="18" id="artboard_1" width="18" />
+        <clipPath id="clip_1">
+            <use clip-rule="evenodd" xlink:href="#artboard_1" />
+        </clipPath>
+    </defs>
+    <g clip-path="url(#clip_1)" id="2-ProtonsButtonsAdd">
+        <path
+            d="M9 18C13.9706 18 18 13.9706 18 9C18 4.02944 13.9706 0 9 0C4.02944 0 0 4.02944 0 9C0 13.9706 4.02944 18 9 18Z"
+            fill="#BAD450" id="Oval" stroke="none" />
+        <g id="Group-2" transform="translate(4 4)">
+            <path d="M0 5L10 5" fill="none" fill-rule="evenodd" id="Path-6" stroke="#FFFFFF"
+                stroke-linecap="round" stroke-width="2" />
+            <path d="M5 -2.73203e-08L5 10" fill="none" fill-rule="evenodd" id="Path-6"
+                stroke="#FFFFFF" stroke-linecap="round" stroke-width="2" />
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" height="20px" version="1.1" viewBox="0 0 20 20"
+    width="20px" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+        <rect height="20" id="artboard_1" width="20" />
+        <clipPath id="clip_1">
+            <use clip-rule="evenodd" xlink:href="#artboard_1" />
+        </clipPath>
+    </defs>
+    <g clip-path="url(#clip_1)" id="ic_chat_bubble">
+        <g id="ElementsIconEXP-Copy">
+            <g id="1-Protonsiconscommunicationic_chat_bubble">
+                <g id="Icon-24px">
+                    <path
+                        d="M16.6667 1.66667L3.33333 1.66667C2.41667 1.66667 1.66667 2.41667 1.66667 3.33333L1.66667 18.3333L5 15L16.6667 15C17.5833 15 18.3333 14.25 18.3333 13.3333L18.3333 3.33333C18.3333 2.41667 17.5833 1.66667 16.6667 1.66667L16.6667 1.66667Z"
+                        fill="#BAD450" fill-rule="evenodd" id="Shape" stroke="none" />
+                    <path d="M0 0L20 0L20 20L0 20L0 0Z" fill="none" fill-rule="evenodd" id="Shape"
+                        stroke="none" />
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

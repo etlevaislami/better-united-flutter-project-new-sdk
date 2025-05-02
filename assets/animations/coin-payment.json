@@ -1,0 +1,1044 @@
+{
+  "v": "4.8.0",
+  "meta": {
+    "g": "LottieFiles AE 3.5.4",
+    "a": "",
+    "k": "",
+    "d": "",
+    "tc": ""
+  },
+  "fr": 30,
+  "ip": 0,
+  "op": 90,
+  "w": 168,
+  "h": 168,
+  "nm": "Coin-payment",
+  "ddd": 0,
+  "assets": [
+    {
+      "id": "image_0",
+      "w": 74,
+      "h": 75,
+      "u": "",
+      "p": "data:image/png;base64,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",
+      "e": 1
+    }
+  ],
+  "layers": [
+    {
+      "ddd": 0,
+      "ind": 1,
+      "ty": 2,
+      "nm": "Icon - Coin.png",
+      "cl": "png",
+      "refId": "image_0",
+      "sr": 1,
+      "ks": {
+        "o": {
+          "a": 1,
+          "k": [
+            {
+              "i": {
+                "x": [
+                  0.667
+                ],
+                "y": [
+                  1
+                ]
+              },
+              "o": {
+                "x": [
+                  0.333
+                ],
+                "y": [
+                  0
+                ]
+              },
+              "t": 0,
+              "s": [
+                0
+              ]
+            },
+            {
+              "t": 10,
+              "s": [
+                100
+              ]
+            }
+          ],
+          "ix": 11
+        },
+        "r": {
+          "a": 1,
+          "k": [
+            {
+              "i": {
+                "x": [
+                  0.666
+                ],
+                "y": [
+                  1
+                ]
+              },
+              "o": {
+                "x": [
+                  0.83
+                ],
+                "y": [
+                  0
+                ]
+              },
+              "t": 0,
+              "s": [
+                0
+              ]
+            },
+            {
+              "t": 60,
+              "s": [
+                360
+              ]
+            }
+          ],
+          "ix": 10
+        },
+        "p": {
+          "a": 1,
+          "k": [
+            {
+              "i": {
+                "x": 0,
+                "y": 1
+              },
+              "o": {
+                "x": 0.333,
+                "y": 0
+              },
+              "t": 0,
+              "s": [
+                84,
+                84,
+                0
+              ],
+              "to": [
+                0,
+                0,
+                0
+              ],
+              "ti": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "i": {
+                "x": 0.9,
+                "y": 0.893
+              },
+              "o": {
+                "x": 1,
+                "y": 0
+              },
+              "t": 20,
+              "s": [
+                77.333,
+                37.333,
+                0
+              ],
+              "to": [
+                0,
+                0,
+                0
+              ],
+              "ti": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "t": 50,
+              "s": [
+                59,
+                214,
+                0
+              ]
+            }
+          ],
+          "ix": 2
+        },
+        "a": {
+          "a": 0,
+          "k": [
+            37,
+            37.5,
+            0
+          ],
+          "ix": 1
+        },
+        "s": {
+          "a": 1,
+          "k": [
+            {
+              "i": {
+                "x": [
+                  0.667,
+                  0.667,
+                  0.667
+                ],
+                "y": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "o": {
+                "x": [
+                  0.333,
+                  0.333,
+                  0.333
+                ],
+                "y": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "t": 0,
+              "s": [
+                100,
+                100,
+                100
+              ]
+            },
+            {
+              "i": {
+                "x": [
+                  0.833,
+                  0.833,
+                  0.833
+                ],
+                "y": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "o": {
+                "x": [
+                  0.333,
+                  0.333,
+                  0.333
+                ],
+                "y": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "t": 20,
+              "s": [
+                120,
+                120,
+                100
+              ]
+            },
+            {
+              "t": 50,
+              "s": [
+                125,
+                125,
+                100
+              ]
+            }
+          ],
+          "ix": 6
+        }
+      },
+      "ao": 0,
+      "ip": 0,
+      "op": 181,
+      "st": 0,
+      "bm": 0
+    },
+    {
+      "ddd": 0,
+      "ind": 2,
+      "ty": 2,
+      "nm": "Icon - Coin.png",
+      "cl": "png",
+      "refId": "image_0",
+      "sr": 1,
+      "ks": {
+        "o": {
+          "a": 1,
+          "k": [
+            {
+              "i": {
+                "x": [
+                  0.667
+                ],
+                "y": [
+                  1
+                ]
+              },
+              "o": {
+                "x": [
+                  0.333
+                ],
+                "y": [
+                  0
+                ]
+              },
+              "t": 8,
+              "s": [
+                0
+              ]
+            },
+            {
+              "t": 18,
+              "s": [
+                100
+              ]
+            }
+          ],
+          "ix": 11
+        },
+        "r": {
+          "a": 1,
+          "k": [
+            {
+              "i": {
+                "x": [
+                  0.666
+                ],
+                "y": [
+                  1
+                ]
+              },
+              "o": {
+                "x": [
+                  0.83
+                ],
+                "y": [
+                  0
+                ]
+              },
+              "t": 8,
+              "s": [
+                0
+              ]
+            },
+            {
+              "t": 68,
+              "s": [
+                360
+              ]
+            }
+          ],
+          "ix": 10
+        },
+        "p": {
+          "a": 1,
+          "k": [
+            {
+              "i": {
+                "x": 0,
+                "y": 1
+              },
+              "o": {
+                "x": 0.333,
+                "y": 0
+              },
+              "t": 8,
+              "s": [
+                84,
+                84,
+                0
+              ],
+              "to": [
+                0,
+                0,
+                0
+              ],
+              "ti": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "i": {
+                "x": 0.9,
+                "y": 0.893
+              },
+              "o": {
+                "x": 1,
+                "y": 0
+              },
+              "t": 28,
+              "s": [
+                77.333,
+                37.333,
+                0
+              ],
+              "to": [
+                0,
+                0,
+                0
+              ],
+              "ti": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "t": 58,
+              "s": [
+                59,
+                214,
+                0
+              ]
+            }
+          ],
+          "ix": 2
+        },
+        "a": {
+          "a": 0,
+          "k": [
+            37,
+            37.5,
+            0
+          ],
+          "ix": 1
+        },
+        "s": {
+          "a": 1,
+          "k": [
+            {
+              "i": {
+                "x": [
+                  0.667,
+                  0.667,
+                  0.667
+                ],
+                "y": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "o": {
+                "x": [
+                  0.333,
+                  0.333,
+                  0.333
+                ],
+                "y": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "t": 8,
+              "s": [
+                100,
+                100,
+                100
+              ]
+            },
+            {
+              "i": {
+                "x": [
+                  0.833,
+                  0.833,
+                  0.833
+                ],
+                "y": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "o": {
+                "x": [
+                  0.333,
+                  0.333,
+                  0.333
+                ],
+                "y": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "t": 28,
+              "s": [
+                120,
+                120,
+                100
+              ]
+            },
+            {
+              "t": 58,
+              "s": [
+                125,
+                125,
+                100
+              ]
+            }
+          ],
+          "ix": 6
+        }
+      },
+      "ao": 0,
+      "ip": 8,
+      "op": 189,
+      "st": 8,
+      "bm": 0
+    },
+    {
+      "ddd": 0,
+      "ind": 3,
+      "ty": 2,
+      "nm": "Icon - Coin.png",
+      "cl": "png",
+      "refId": "image_0",
+      "sr": 1,
+      "ks": {
+        "o": {
+          "a": 1,
+          "k": [
+            {
+              "i": {
+                "x": [
+                  0.667
+                ],
+                "y": [
+                  1
+                ]
+              },
+              "o": {
+                "x": [
+                  0.333
+                ],
+                "y": [
+                  0
+                ]
+              },
+              "t": 16,
+              "s": [
+                0
+              ]
+            },
+            {
+              "t": 26,
+              "s": [
+                100
+              ]
+            }
+          ],
+          "ix": 11
+        },
+        "r": {
+          "a": 1,
+          "k": [
+            {
+              "i": {
+                "x": [
+                  0.666
+                ],
+                "y": [
+                  1
+                ]
+              },
+              "o": {
+                "x": [
+                  0.83
+                ],
+                "y": [
+                  0
+                ]
+              },
+              "t": 16,
+              "s": [
+                0
+              ]
+            },
+            {
+              "t": 76,
+              "s": [
+                360
+              ]
+            }
+          ],
+          "ix": 10
+        },
+        "p": {
+          "a": 1,
+          "k": [
+            {
+              "i": {
+                "x": 0,
+                "y": 1
+              },
+              "o": {
+                "x": 0.333,
+                "y": 0
+              },
+              "t": 16,
+              "s": [
+                84,
+                84,
+                0
+              ],
+              "to": [
+                0,
+                0,
+                0
+              ],
+              "ti": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "i": {
+                "x": 0.9,
+                "y": 0.893
+              },
+              "o": {
+                "x": 1,
+                "y": 0
+              },
+              "t": 36,
+              "s": [
+                77.333,
+                37.333,
+                0
+              ],
+              "to": [
+                0,
+                0,
+                0
+              ],
+              "ti": [
+                0,
+                0,
+                0
+              ]
+            },
+            {
+              "t": 66,
+              "s": [
+                59,
+                214,
+                0
+              ]
+            }
+          ],
+          "ix": 2
+        },
+        "a": {
+          "a": 0,
+          "k": [
+            37,
+            37.5,
+            0
+          ],
+          "ix": 1
+        },
+        "s": {
+          "a": 1,
+          "k": [
+            {
+              "i": {
+                "x": [
+                  0.667,
+                  0.667,
+                  0.667
+                ],
+                "y": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "o": {
+                "x": [
+                  0.333,
+                  0.333,
+                  0.333
+                ],
+                "y": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "t": 16,
+              "s": [
+                100,
+                100,
+                100
+              ]
+            },
+            {
+              "i": {
+                "x": [
+                  0.833,
+                  0.833,
+                  0.833
+                ],
+                "y": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "o": {
+                "x": [
+                  0.333,
+                  0.333,
+                  0.333
+                ],
+                "y": [
+                  0,
+                  0,
+                  0
+                ]
+              },
+              "t": 36,
+              "s": [
+                120,
+                120,
+                100
+              ]
+            },
+            {
+              "t": 66,
+              "s": [
+                125,
+                125,
+                100
+              ]
+            }
+          ],
+          "ix": 6
+        }
+      },
+      "ao": 0,
+      "ip": 16,
+      "op": 197,
+      "st": 16,
+      "bm": 0
+    },
+    {
+      "ddd": 0,
+      "ind": 4,
+      "ty": 2,
+      "nm": "Icon - Coin.png",
+      "cl": "png",
+      "refId": "image_0",
+      "sr": 1,
+      "ks": {
+        "o": {
+          "a": 0,
+          "k": 100,
+          "ix": 11
+        },
+        "r": {
+          "a": 0,
+          "k": 0,
+          "ix": 10
+        },
+        "p": {
+          "a": 0,
+          "k": [
+            84,
+            84,
+            0
+          ],
+          "ix": 2
+        },
+        "a": {
+          "a": 0,
+          "k": [
+            37,
+            37.5,
+            0
+          ],
+          "ix": 1
+        },
+        "s": {
+          "a": 0,
+          "k": [
+            100,
+            100,
+            100
+          ],
+          "ix": 6
+        }
+      },
+      "ao": 0,
+      "ip": 0,
+      "op": 181,
+      "st": 0,
+      "bm": 0
+    },
+    {
+      "ddd": 0,
+      "ind": 5,
+      "ty": 4,
+      "nm": "Shape Layer 1",
+      "sr": 1,
+      "ks": {
+        "o": {
+          "a": 0,
+          "k": 100,
+          "ix": 11
+        },
+        "r": {
+          "a": 0,
+          "k": 0,
+          "ix": 10
+        },
+        "p": {
+          "a": 0,
+          "k": [
+            62.762,
+            163,
+            0
+          ],
+          "ix": 2
+        },
+        "a": {
+          "a": 0,
+          "k": [
+            -1.238,
+            77.74,
+            0
+          ],
+          "ix": 1
+        },
+        "s": {
+          "a": 0,
+          "k": [
+            100,
+            100,
+            100
+          ],
+          "ix": 6
+        }
+      },
+      "ao": 0,
+      "shapes": [
+        {
+          "ty": "gr",
+          "it": [
+            {
+              "ty": "rc",
+              "d": 1,
+              "s": {
+                "a": 1,
+                "k": [
+                  {
+                    "i": {
+                      "x": [
+                        0,
+                        0
+                      ],
+                      "y": [
+                        1,
+                        1
+                      ]
+                    },
+                    "o": {
+                      "x": [
+                        0.333,
+                        0.333
+                      ],
+                      "y": [
+                        0,
+                        0
+                      ]
+                    },
+                    "t": 10,
+                    "s": [
+                      0,
+                      0
+                    ]
+                  },
+                  {
+                    "i": {
+                      "x": [
+                        0.833,
+                        0.833
+                      ],
+                      "y": [
+                        1,
+                        1
+                      ]
+                    },
+                    "o": {
+                      "x": [
+                        0.333,
+                        0.333
+                      ],
+                      "y": [
+                        0,
+                        0
+                      ]
+                    },
+                    "t": 30,
+                    "s": [
+                      96,
+                      10
+                    ]
+                  },
+                  {
+                    "i": {
+                      "x": [
+                        0.667,
+                        0.667
+                      ],
+                      "y": [
+                        1,
+                        1
+                      ]
+                    },
+                    "o": {
+                      "x": [
+                        0.979,
+                        1
+                      ],
+                      "y": [
+                        0,
+                        0
+                      ]
+                    },
+                    "t": 60,
+                    "s": [
+                      96,
+                      10
+                    ]
+                  },
+                  {
+                    "t": 75,
+                    "s": [
+                      0,
+                      0
+                    ]
+                  }
+                ],
+                "ix": 2
+              },
+              "p": {
+                "a": 0,
+                "k": [
+                  0,
+                  0
+                ],
+                "ix": 3
+              },
+              "r": {
+                "a": 0,
+                "k": 8,
+                "ix": 4
+              },
+              "nm": "Rectangle Path 1",
+              "mn": "ADBE Vector Shape - Rect",
+              "hd": false
+            },
+            {
+              "ty": "fl",
+              "c": {
+                "a": 0,
+                "k": [
+                  0,
+                  0,
+                  0,
+                  1
+                ],
+                "ix": 4
+              },
+              "o": {
+                "a": 0,
+                "k": 100,
+                "ix": 5
+              },
+              "r": 1,
+              "bm": 0,
+              "nm": "Fill 1",
+              "mn": "ADBE Vector Graphic - Fill",
+              "hd": false
+            },
+            {
+              "ty": "tr",
+              "p": {
+                "a": 0,
+                "k": [
+                  -1.238,
+                  77.74
+                ],
+                "ix": 2
+              },
+              "a": {
+                "a": 0,
+                "k": [
+                  0,
+                  0
+                ],
+                "ix": 1
+              },
+              "s": {
+                "a": 0,
+                "k": [
+                  100,
+                  100
+                ],
+                "ix": 3
+              },
+              "r": {
+                "a": 0,
+                "k": 0,
+                "ix": 6
+              },
+              "o": {
+                "a": 0,
+                "k": 100,
+                "ix": 7
+              },
+              "sk": {
+                "a": 0,
+                "k": 0,
+                "ix": 4
+              },
+              "sa": {
+                "a": 0,
+                "k": 0,
+                "ix": 5
+              },
+              "nm": "Transform"
+            }
+          ],
+          "nm": "Rectangle 1",
+          "np": 3,
+          "cix": 2,
+          "bm": 0,
+          "ix": 1,
+          "mn": "ADBE Vector Group",
+          "hd": false
+        }
+      ],
+      "ip": 0,
+      "op": 181,
+      "st": 0,
+      "bm": 0
+    }
+  ],
+  "markers": []
+}
