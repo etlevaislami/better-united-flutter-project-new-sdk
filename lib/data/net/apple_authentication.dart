@@ -45,6 +45,15 @@ class AppleAuthentication extends TokenAuthentication {
         case AuthorizationErrorCode.notInteractive:
         case AuthorizationErrorCode.unknown:
           return AuthResult.failed();
+        case AuthorizationErrorCode.credentialExport:
+          // TODO: Handle this case.
+          throw UnimplementedError();
+        case AuthorizationErrorCode.credentialImport:
+          // TODO: Handle this case.
+          throw UnimplementedError();
+        case AuthorizationErrorCode.matchedExcludedCredential:
+          // TODO: Handle this case.
+          throw UnimplementedError();
       }
     } on BadRequestException {
       return AuthResult.accountNotFound();
@@ -52,6 +61,5 @@ class AppleAuthentication extends TokenAuthentication {
       logger.e(exception);
       return AuthResult.failed();
     }
-    return AuthResult.failed();
   }
 }

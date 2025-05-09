@@ -37,6 +37,12 @@ class ErrorInterceptor extends Interceptor {
       case DioExceptionType.unknown:
         showToast("noInternetConnection".tr());
         throw NoInternetConnectionException(err);
+      case DioExceptionType.badCertificate:
+        // TODO: Handle this case.
+        throw UnimplementedError();
+      case DioExceptionType.connectionError:
+        // TODO: Handle this case.
+        throw UnimplementedError();
     }
 
     return handler.next(err);
