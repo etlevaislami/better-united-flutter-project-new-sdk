@@ -33,7 +33,7 @@ class RefreshTokenInterceptor extends QueuedInterceptor {
   }
 
   @override
-  Future<void> onError(DioError err, ErrorInterceptorHandler handler) async {
+  Future<void> onError(DioException err, ErrorInterceptorHandler handler) async {
     bool isRefreshRequired =
         await _authenticatorManager.getAccessToken() != null;
     bool isRequestPublic =
@@ -80,7 +80,7 @@ class RefreshTokenInterceptor extends QueuedInterceptor {
     return handler.next(err);
   }
 
-  _retryRequest(DioError dioError, ErrorInterceptorHandler handler,
+  _retryRequest(DioException dioError, ErrorInterceptorHandler handler,
       String accessToken) async {
     dioError.requestOptions.headers.addAll({authHeader: "Bearer $accessToken"});
     final opts = Options(
@@ -92,7 +92,7 @@ class RefreshTokenInterceptor extends QueuedInterceptor {
           data: dioError.requestOptions.data,
           queryParameters: dioError.requestOptions.queryParameters);
       return handler.resolve(cloneReq);
-    } on DioError catch (error) {
+    } on DioException catch (error) {
       return handler.next(error);
     }
   }
@@ -111,8 +111,8 @@ class RefreshTokenInterceptor extends QueuedInterceptor {
       }
       return null;
     } catch (e) {
-      if (e is DioError &&
-          e.type == DioErrorType.response &&
+      if (e is DioException &&
+          e.type == DioExceptionType.badResponse &&
           e.response?.statusCode == 400) {
         throw RefreshTokenExpiredException();
       }

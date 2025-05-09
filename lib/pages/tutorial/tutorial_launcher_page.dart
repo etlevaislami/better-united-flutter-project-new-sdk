@@ -12,7 +12,7 @@ import 'package:flutter_better_united/pages/tutorial/dummy_shop_page.dart';
 import 'package:flutter_better_united/pages/tutorial/tutorial_walkthrough.dart';
 import 'package:flutter_better_united/util/shape/path_utils.dart';
 import 'package:flutter_better_united/widgets/bottom_nav_bar.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 import '../../constants/app_colors.dart';
 import '../../data/net/models/tutorial.dart';
@@ -52,7 +52,8 @@ class _TutorialLauncherPageState extends State<TutorialLauncherPage> {
       EdgeInsets.only(left: 12, right: 12, top: 10, bottom: 6);
   final double bottomNavigationBarHeight = 100;
 
-  late List<PersistentBottomNavBarItem> navItems;
+  late List<PersistentTabConfig>
+      navItems;
   final PersistentTabController bottomMenuTabController =
       PersistentTabController(initialIndex: 0);
 
@@ -69,7 +70,14 @@ class _TutorialLauncherPageState extends State<TutorialLauncherPage> {
       rankingIconKey: _unblurredRankingMenuButtonKey,
       shopIconKey: _unblurredShopMenuButtonKey,
       profileIconKey: _unblurredProfileMenuButtonKey,
-    );
+    ).asMap().entries.map((entry) {
+      final index = entry.key;
+      final item = entry.value;
+      return PersistentTabConfig(
+        screen: _getScreenForIndex(index),
+        item: item,
+      );
+    }).toList();
     dummyBottomMenuPage = Scaffold(
       backgroundColor: AppColors.navBarBackground,
       bottomNavigationBar: _buildBottomNavigation(),
@@ -77,6 +85,31 @@ class _TutorialLauncherPageState extends State<TutorialLauncherPage> {
       extendBody: true,
     );
     super.initState();
+  }
+
+  Widget _getScreenForIndex(int index) {
+    switch (index) {
+      case 0:
+        return DummyHomePage(
+          unblurredActivePoulesButtonKey: _unblurredActivePoulesButtonKey,
+          unblurredLeftButtonKey: _unblurredLeftButtonKey,
+          unblurredRightButtonKey: _unblurredRightButtonKey,
+        );
+      case 1:
+        return DummyRankingPage(
+          unblurredWeeklyRankingSectionKey: _unblurredWeeklyRankingSectionKey,
+        );
+      case 2:
+        return DummyShopPage(
+          unblurredShopSectionKey: _unblurredShopSectionKey,
+        );
+      case 3:
+        return DummyMyProfilePage(
+          unblurredProfileSectionKey: _unblurredProfileSectionKey,
+        );
+      default:
+        return SizedBox.shrink();
+    }
   }
 
   @override
@@ -105,42 +138,29 @@ class _TutorialLauncherPageState extends State<TutorialLauncherPage> {
         // Disable back-press because this had issues.
         return false;
       },
-      child: PersistentTabView.custom(
-        context,
-        customWidget: (p0) => BottomNavBar(
-          navBarEssentials: NavBarEssentials(
+      child: PersistentTabView(
+        navBarBuilder: (navBarConfig) => BottomNavBar(
+          navBarConfig: NavBarConfig(
             navBarHeight: NavPage.navBarHeight,
+            onItemSelected: (value) {
+              bottomMenuTabController.jumpToTab(value);
+              navBarConfig.onItemSelected(value);
+            },
             selectedIndex: bottomMenuTabController.index,
-            items: navItems,
+            items: navItems.map((config) => config.item).toList(),
           ),
+          navBarHeight: NavPage.navBarHeight,
         ),
-        itemCount: navItems.length,
+        tabs: navItems,
         controller: bottomMenuTabController,
-        screens: [
-          DummyHomePage(
-            unblurredActivePoulesButtonKey: _unblurredActivePoulesButtonKey,
-            unblurredLeftButtonKey: _unblurredLeftButtonKey,
-            unblurredRightButtonKey: _unblurredRightButtonKey,
-          ),
-          DummyRankingPage(
-            unblurredWeeklyRankingSectionKey: _unblurredWeeklyRankingSectionKey,
-          ),
-          DummyShopPage(
-            unblurredShopSectionKey: _unblurredShopSectionKey,
-          ),
-          DummyMyProfilePage(
-            unblurredProfileSectionKey: _unblurredProfileSectionKey,
-          ),
-        ],
-        confineInSafeArea: true,
+        avoidBottomPadding: true,
         backgroundColor: AppColors.navBarBackground,
         handleAndroidBackButtonPress: false,
         resizeToAvoidBottomInset: true,
         stateManagement: true,
         navBarHeight: NavPage.navBarHeight,
-        hideNavigationBarWhenKeyboardShows: true,
         margin: EdgeInsets.zero,
-        bottomScreenMargin: 0.0,
+        navBarOverlap: NavBarOverlap.custom(overlap: 0.0),
         hideNavigationBar: false,
       ),
     );
@@ -399,7 +419,8 @@ class _TutorialLauncherPageState extends State<TutorialLauncherPage> {
                     right: highLightedWidgetPadding,
                     top: highLightedWidgetPadding,
                     // Additional space to also make the poule stats widget highlighted.
-                    bottom: highLightedWidgetPadding + 28 +
+                    bottom: highLightedWidgetPadding +
+                        28 +
                         AppDimensions.profilePagePouleStatsWidgetHeight),
               )),
     ];

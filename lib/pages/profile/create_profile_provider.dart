@@ -1,4 +1,5 @@
 import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_better_united/data/net/auth_manager.dart';
 import 'package:flutter_better_united/data/net/interceptors/error_interceptor.dart';
@@ -186,8 +187,15 @@ class ProfileProvider with ChangeNotifier {
 
   searchTeam(String searchTerm) async {
     this.searchTerm = searchTerm;
-    pagingState = const PagingState<int, Team>();
+    pagingState = PagingState<int, Team>(
+        pages: <List<Team>>[],
+        keys: <int>[],
+        hasNextPage: true,
+        isLoading: true,
+        error: null);
     notifyListeners();
+
+    await getTeams(searchTerm: searchTerm, pageNumber: 1);
   }
 
   toggleTeam(Team team) {
@@ -197,24 +205,38 @@ class ProfileProvider with ChangeNotifier {
     } else {
       userFavoriteTeamIds?.remove(team.id);
     }
-    final itemList = pagingState.itemList;
-    if (itemList != null) {
-      _sortByFavoriteTeams(itemList);
+    final allItems = pagingState.items;
+    if (allItems?.isNotEmpty ?? false) {
+      final itemsList = allItems?.toList() ?? [];
+      _sortByFavoriteTeams(itemsList);
+
+      final updatedPages = <List<Team>>[itemsList];
+      final updatedKeys = <int>[1];
+
+      pagingState = PagingState<int, Team>(
+          pages: updatedPages,
+          keys: updatedKeys,
+          hasNextPage: pagingState.hasNextPage,
+          isLoading: pagingState.isLoading,
+          error: pagingState.error);
     }
-    pagingState = PagingState<int, Team>(
-      itemList: pagingState.itemList,
-      error: pagingState.error,
-      nextPageKey: pagingState.nextPageKey,
-    );
+
     notifyListeners();
   }
 
-  PagingState<int, Team> pagingState = const PagingState<int, Team>();
+  PagingState<int, Team> pagingState = PagingState<int, Team>(
+      pages: <List<Team>>[],
+      keys: <int>[],
+      hasNextPage: true,
+      isLoading: false,
+      error: null);
   List<int>? userFavoriteTeamIds;
 
   getTeams({String? searchTerm, required int pageNumber}) async {
     if (userFavoriteTeamIds != null) {
-      print("sycning not needed");
+      if (kDebugMode) {
+        print("sycning not needed");
+      }
     }
     userFavoriteTeamIds ??= (await _profileRepository.getProfile())
         .favoriteTeams
@@ -225,21 +247,31 @@ class ProfileProvider with ChangeNotifier {
       searchTerm: searchTerm,
       page: pageNumber,
     );
-    if (pagingState.nextPageKey == null) {
-      pagingState.itemList?.clear();
+
+    List<List<Team>> currentPages =
+        List<List<Team>>.from(pagingState.pages ?? []);
+    List<int> currentKeys = List<int>.from(pagingState.keys ?? []);
+
+    if (pageNumber == 1) {
+      currentPages = [];
+      currentKeys = [];
     }
 
-    final previousItems = pagingState.itemList ?? [];
-    final itemList = previousItems + paginatedTips.data;
-    //populateFavoriteTeams
-    for (var team in itemList) {
+    for (var team in paginatedTips.data) {
       team.isAddedToFavorite = userFavoriteTeamIds?.contains(team.id) ?? false;
     }
-    _sortByFavoriteTeams(itemList);
+
+    _sortByFavoriteTeams(paginatedTips.data);
+
+    currentPages.add(paginatedTips.data);
+    currentKeys.add(pageNumber);
+
     pagingState = PagingState<int, Team>(
-      itemList: itemList,
+      pages: currentPages,
+      keys: currentKeys,
+      hasNextPage: !paginatedTips.isLastPage(),
       error: null,
-      nextPageKey: paginatedTips.isLastPage() ? null : pageNumber + 1,
+      isLoading: false,
     );
     notifyListeners();
   }

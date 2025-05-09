@@ -6,7 +6,6 @@ import 'package:flutter_better_united/constants/extended_theme.dart';
 import 'package:flutter_better_united/figma/colors.dart';
 import 'package:flutter_better_united/figma/dimensions.dart';
 import 'package:flutter_better_united/my_purchases_page.dart';
-import 'package:flutter_better_united/pages/nav_page.dart';
 import 'package:flutter_better_united/pages/shop/purchase_manager.dart';
 import 'package:flutter_better_united/pages/shop/shop_provider.dart';
 import 'package:flutter_better_united/util/betterUnited_icons.dart';
@@ -134,7 +133,7 @@ class _ShopPageState extends State<ShopPage>
                           const _Offers(),
                           _CoinsTab(scrollController: _scrollController),
                         ],
-                ),
+                      ),
               )
             ],
           ),
@@ -157,14 +156,14 @@ class _CoinsTab extends StatelessWidget {
         ? GridView.builder(
             controller: scrollController,
             shrinkWrap: true,
-      gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-          maxCrossAxisExtent: 200,
-          mainAxisExtent: 213,
-          crossAxisSpacing: 20,
-          mainAxisSpacing: 20),
+            gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
+                maxCrossAxisExtent: 200,
+                mainAxisExtent: 213,
+                crossAxisSpacing: 20,
+                mainAxisSpacing: 20),
             itemCount: regularPurchasableCoins.length,
             itemBuilder: (BuildContext ctx, index) {
-        return GestureDetector(
+              return GestureDetector(
                 onTap: () => context
                     .read<ShopProvider>()
                     .buyCoins(regularPurchasableCoins[index]),
@@ -173,8 +172,8 @@ class _CoinsTab extends StatelessWidget {
                   coins: regularPurchasableCoins[index].coins,
                   currencyCode: regularPurchasableCoins[index].currencySymbol,
                 ),
-        );
-      },
+              );
+            },
           )
         : _buildStoreNotAvailableWidget(context);
   }
@@ -268,9 +267,6 @@ class _Offers extends StatelessWidget {
                 .push(MyPurchasesPage.route());
           },
         ),
-        const SizedBox(
-          height: NavPage.navBarHeight,
-        )
       ],
     );
   }

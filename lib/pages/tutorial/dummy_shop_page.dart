@@ -245,9 +245,6 @@ class _Offers extends StatelessWidget {
                 .push(MyPurchasesPage.route());
           },
         ),
-        const SizedBox(
-          height: NavPage.navBarHeight,
-        )
       ],
     );
   }

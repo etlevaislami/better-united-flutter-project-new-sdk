@@ -235,7 +235,7 @@ class _RegisterPageState extends State<RegisterPage> {
           value: isActive,
           onChanged: onChanged,
           checkColor: Colors.white,
-          fillColor: MaterialStateProperty.all(Colors.transparent),
+          fillColor: WidgetStateProperty.all(Colors.transparent),
         ),
       ),
     );

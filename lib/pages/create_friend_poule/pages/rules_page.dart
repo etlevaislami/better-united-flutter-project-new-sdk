@@ -181,7 +181,7 @@ class _CheckBox extends StatelessWidget {
                     value: isActive,
                     onChanged: onChanged,
                     checkColor: Colors.white,
-                    fillColor: MaterialStateProperty.all(Colors.transparent),
+                    fillColor: WidgetStateProperty.all(Colors.transparent),
                   ),
                 ),
               ),

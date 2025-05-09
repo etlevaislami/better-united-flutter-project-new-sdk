@@ -65,23 +65,22 @@ class BaseDialog extends StatelessWidget {
                     ),
                     Transform.translate(
                       offset: Offset(0, -position),
-                      child: AlertDialog(
-                        backgroundColor: const Color(0xff2B2B2B),
+                      child: Material(
+                        color: const Color(0xff2B2B2B),
+                        borderRadius:
+                            const BorderRadius.all(Radius.circular(8.0)),
+                        elevation: 24,
                         clipBehavior: Clip.antiAlias,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(8.0),
-                          ),
-                        ),
-                        insetPadding: EdgeInsets.zero,
-                        contentPadding: EdgeInsets.zero,
-                        content: ConstrainedBox(
+                        child: ConstrainedBox(
                           constraints: BoxConstraints(
-                              maxHeight: context.height * 0.65,
-                              minHeight: circleHeight),
+                            maxWidth: context.width,
+                            minWidth: context.width,
+                            maxHeight: context.height * 0.42,
+                            minHeight: circleHeight,
+                          ),
                           child: SizedBox(
-                            width: context.width * 0.95,
-                            child: SingleChildScrollView(
+                            width: context.width,
+                            child: Padding(
                               padding: EdgeInsets.only(top: imageHeight / 2),
                               child: child,
                             ),

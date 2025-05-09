@@ -52,5 +52,6 @@ class AppleAuthentication extends TokenAuthentication {
       logger.e(exception);
       return AuthResult.failed();
     }
+    return AuthResult.failed();
   }
 }

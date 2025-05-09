@@ -109,7 +109,7 @@ class _InputFieldState extends State<InputField> {
                 )
               : null,
           hintText: widget.hintText ?? " ",
-          prefixIconColor: MaterialStateColor.resolveWith(
+          prefixIconColor: WidgetStateColor.resolveWith(
               (states) => const Color(0xff9A9A9A)),
           prefixIcon: widget.prefixIcon,
           helperText: widget.allocateSpaceForTextError

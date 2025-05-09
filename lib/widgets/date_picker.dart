@@ -26,7 +26,8 @@ class DatePicker extends StatefulWidget {
   @override
   State<DatePicker> createState() => _DatePickerState();
 
-  static Future<DateTime?> showDate(BuildContext context, {
+  static Future<DateTime?> showDate(
+    BuildContext context, {
     DateTime? date,
     DateTime? firstDate,
     DateTime? lastDate,
@@ -45,7 +46,6 @@ class DatePicker extends StatefulWidget {
 }
 
 class _DatePickerState extends State<DatePicker> {
-
   DateTime? _selectedDate;
 
   @override
@@ -100,8 +100,11 @@ class _DatePickerState extends State<DatePicker> {
                         fontSize: 18,
                         fontWeight: FontWeight.normal,
                       ),
-                      modePickerTextHandler: ({required monthDate}) =>
-                          monthFormatter.format(monthDate),
+                      modePickerTextHandler: (
+                          {required DateTime monthDate, bool? isMonthPicker}) {
+                        return monthFormatter.format(monthDate);
+                      },
+                      disableMonthPicker: true,
                       customModePickerIcon: const Padding(
                         padding: EdgeInsets.symmetric(horizontal: 16.0),
                         child: Icon(
@@ -176,7 +179,7 @@ class _DatePickerState extends State<DatePicker> {
                           child: SecondaryButton(
                         withBorders: false,
                         onPressed: () {
-                          context.pop(result: _selectedDate);
+                          context.pop(_selectedDate);
                         },
                         text: "done".tr().toUpperCase(),
                       )),

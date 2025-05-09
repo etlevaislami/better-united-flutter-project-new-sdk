@@ -9,7 +9,7 @@ import '../shop/user_provider.dart';
 
 class TipProvider with ChangeNotifier {
   FilterCriteria filterCriteria;
-  PagingState<int, TipDetail> pagingState = const PagingState<int, TipDetail>();
+  PagingState<int, TipDetail> pagingState = PagingState<int, TipDetail>();
   final TipRepository _tipRepository;
   final UserProvider _userProvider;
   final Duration minimumDelay = const Duration(milliseconds: 2000);
@@ -18,8 +18,17 @@ class TipProvider with ChangeNotifier {
   TipProvider(this._tipRepository, this._userProvider,
       {required this.filterCriteria});
 
+  Future<List<TipDetail>> fetchPage(int pageKey) async {
+    await getTips(pageNumber: pageKey);
+    final pages = pagingState.pages;
+    if (pages != null && pages.isNotEmpty) {
+      return pages.last;
+    }
+    return <TipDetail>[];
+  }
+
   clearTips() {
-    pagingState = const PagingState<int, TipDetail>();
+    pagingState = PagingState<int, TipDetail>();
   }
 
   updateFilterCriteria(FilterCriteria filterCriteria) {
@@ -48,49 +57,59 @@ class TipProvider with ChangeNotifier {
           onlyOthers: filterCriteria.onlyOthers,
           publicLeagueId: filterCriteria.publicLeagueId);
 
-      if (pagingState.nextPageKey == null) {
-        pagingState.itemList?.clear();
+      final List<List<TipDetail>> pages = List.from(pagingState.pages ?? []);
+      final List<int> keys = List.from(pagingState.keys ?? []);
+      if (paginatedTips.data.isNotEmpty) {
+        pages.add(paginatedTips.data);
+        keys.add(pageNumber);
       }
 
-      final previousItems = pagingState.itemList ?? [];
-      final itemList = previousItems + paginatedTips.data;
       pagingState = PagingState<int, TipDetail>(
-        itemList: itemList,
+        pages: pages,
+        keys: keys,
         error: null,
-        nextPageKey: paginatedTips.isLastPage() ? null : pageNumber + 1,
+        hasNextPage: !paginatedTips.isLastPage(),
+        isLoading: false,
       );
       totalItemCount = paginatedTips.totalItemCount;
       notifyListeners();
     } catch (error) {
       pagingState = PagingState<int, TipDetail>(
-        itemList: pagingState.itemList,
+        pages: pagingState.pages,
+        keys: pagingState.keys,
         error: error,
-        nextPageKey: pagingState.nextPageKey,
+        hasNextPage: pagingState.hasNextPage,
+        isLoading: false,
       );
       notifyListeners();
     }
   }
 
   _refreshTip() {
-    pagingState = PagingState(
-        nextPageKey: pagingState.nextPageKey,
-        itemList: List.of(pagingState.itemList ?? []),
-        error: pagingState.error);
+    pagingState = PagingState<int, TipDetail>(
+      pages: List.of(pagingState.pages ?? []),
+      keys: List.of(pagingState.keys ?? []),
+      error: pagingState.error,
+      hasNextPage: pagingState.hasNextPage,
+      isLoading: false,
+    );
     notifyListeners();
   }
 
   refreshTips() {
-    pagingState = const PagingState<int, TipDetail>();
+    pagingState = PagingState<int, TipDetail>();
     notifyListeners();
     getTips(pageNumber: 1);
   }
 
   updateFollowingStatus(int userId, bool isFollowing) {
-    pagingState.itemList
-        ?.where((element) => element.userId == userId)
-        .forEach((tipDetail) {
-      tipDetail.isFollowingAuthor = isFollowing;
-    });
+    for (final page in pagingState.pages ?? []) {
+      for (final tipDetail in page) {
+        if (tipDetail.userId == userId) {
+          tipDetail.isFollowingAuthor = isFollowing;
+        }
+      }
+    }
     _refreshTip();
   }
 

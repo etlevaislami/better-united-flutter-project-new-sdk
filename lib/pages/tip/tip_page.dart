@@ -13,6 +13,7 @@ import '../../widgets/result_counter_widget.dart';
 
 class TipList extends StatefulWidget {
   TipList({
+    Key? key,
     required this.filterCriteria,
     this.scrollController,
     this.isRefreshEnabled = false,
@@ -23,7 +24,7 @@ class TipList extends StatefulWidget {
     required this.pouleName,
     required this.pouleType,
     this.onProfileTap,
-  }) : super(key: ObjectKey(filterCriteria));
+  }) : super(key: key);
 
   final FilterCriteria filterCriteria;
   final ScrollController? scrollController;
@@ -42,10 +43,7 @@ class TipList extends StatefulWidget {
 
 class _TipListState extends State<TipList> {
   late final TipProvider _tipProvider;
-  final _pagingController = PagingController<int, TipDetail>(
-    firstPageKey: 1,
-  );
-
+  late final PagingController<int, TipDetail> _pagingController;
   @override
   void initState() {
     super.initState();
@@ -54,13 +52,23 @@ class _TipListState extends State<TipList> {
       context.read(),
       filterCriteria: widget.filterCriteria,
     );
-    _observePageChange();
+    _pagingController = PagingController<int, TipDetail>(
+      getNextPageKey: (state) {
+        final keys = state.keys;
+        if (keys == null || keys.isEmpty) return 1;
+        return keys.last + 1;
+      },
+      fetchPage: (pageKey) async {
+        if (!mounted) return <TipDetail>[];
+        return await _tipProvider.fetchPage(pageKey);
+      },
+    );
   }
 
   @override
   void dispose() {
-    super.dispose();
     _pagingController.dispose();
+    super.dispose();
   }
 
   @override
@@ -108,7 +116,8 @@ class _TipListState extends State<TipList> {
                       ? ResultCounterWidget(count: totalItemCount)
                       : const SizedBox()),
               PagedSliverList.separated(
-                pagingController: _pagingController..value = pagingState,
+                state: pagingState,
+                fetchNextPage: () => _pagingController.fetchNextPage(),
                 builderDelegate: PagedChildBuilderDelegate<TipDetail>(
                   noItemsFoundIndicatorBuilder: (context) =>
                       Center(child: widget.emptyWidget),
@@ -132,7 +141,6 @@ class _TipListState extends State<TipList> {
 
   Widget _buildPagedListView(
       PagingState<int, TipDetail> pagingState, int totalItemCount) {
-    print(pagingState.itemList?.length);
     return PagedListView.separated(
       scrollController: widget.scrollController,
       builderDelegate: PagedChildBuilderDelegate<TipDetail>(
@@ -158,15 +166,8 @@ class _TipListState extends State<TipList> {
       separatorBuilder: (BuildContext context, int index) => const SizedBox(
         height: 16,
       ),
-      pagingController: _pagingController..value = pagingState,
-    );
-  }
-
-  _observePageChange() {
-    _pagingController.addPageRequestListener(
-      (pageKey) {
-        _tipProvider.getTips(pageNumber: pageKey);
-      },
+      state: pagingState,
+      fetchNextPage: () => _pagingController.fetchNextPage(),
     );
   }
 
@@ -190,7 +191,6 @@ class _TipListState extends State<TipList> {
           isVoided: tip.isTipVoided,
         );
       };
-
 
   ItemWidgetBuilder<TipDetail> _getTipBuilder() {
     return revealableTipBuilder();

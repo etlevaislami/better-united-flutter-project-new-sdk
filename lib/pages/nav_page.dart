@@ -13,7 +13,7 @@ import 'package:flutter_better_united/pages/shop/user_provider.dart';
 import 'package:flutter_better_united/util/navigation_service.dart';
 import 'package:flutter_better_united/util/settings.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 import 'package:provider/provider.dart';
 
 import '../util/dialog_manager.dart';
@@ -30,9 +30,9 @@ class NavPage extends StatefulWidget {
   static const int friendIndex = 1;
   static const int shopIndex = 3;
   static const int createTipIndex = 2;
-  static const double navBarHeight = 60;
+  static const double navBarHeight = 85;
 
-  const NavPage({Key? key}) : super(key: key);
+  const NavPage({super.key});
 
   @override
   State<NavPage> createState() => _NavPageState();
@@ -58,33 +58,27 @@ class _NavPageState extends State<NavPage> {
 
   @override
   Widget build(BuildContext context) {
-    return PersistentTabView.custom(
-      context,
-      customWidget: (p0) => BottomNavBar(
-        navBarEssentials: NavBarEssentials(
-          navBarHeight: NavPage.navBarHeight,
-          onItemSelected: (value) {
-            _controller.jumpToTab(value);
-            setState(() {
-              _controller.index = value;
-            });
-          },
-          selectedIndex: _controller.index,
-          items: navItems,
-        ),
+    return PersistentTabView(
+      navBarBuilder: (navBarConfig) => BottomNavBar(
+        navBarConfig: navBarConfig,
+        navBarHeight: NavPage.navBarHeight,
       ),
-      itemCount: navItems.length,
+      tabs: [
+        for (int i = 0; i < navItems.length; i++)
+          PersistentTabConfig(
+            screen: _pageOptions[i],
+            item: navItems[i],
+          ),
+      ],
       controller: _controller,
-      screens: _pageOptions,
-      confineInSafeArea: true,
+      avoidBottomPadding: true,
       backgroundColor: AppColors.navBarBackground,
-      handleAndroidBackButtonPress: true,
+      handleAndroidBackButtonPress: false,
       resizeToAvoidBottomInset: true,
       stateManagement: true,
       navBarHeight: NavPage.navBarHeight,
-      hideNavigationBarWhenKeyboardShows: true,
       margin: EdgeInsets.zero,
-      bottomScreenMargin: 0.0,
+      navBarOverlap: NavBarOverlap.custom(overlap: 0.0),
       hideNavigationBar: false,
     );
   }
@@ -172,7 +166,7 @@ class _NavPageState extends State<NavPage> {
     flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
-        ?.requestPermission();
+        ?.areNotificationsEnabled();
 
     flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
@@ -200,9 +194,6 @@ class _NavPageState extends State<NavPage> {
         }
 
         _controller.jumpToTab(index);
-        setState(() {
-          _controller.index = index;
-        });
       },
     );
   }
@@ -214,13 +205,12 @@ class _NavPageState extends State<NavPage> {
   }
 
   void _checkUnclaimedTeamOfWeekAndSeasonRewards(BuildContext context) {
-    // First open weekly dialog if any unclaimed weekly rewards. After showing that dialog check if seasonal dialog should display too. 
+    // First open weekly dialog if any unclaimed weekly rewards. After showing that dialog check if seasonal dialog should display too.
     context.read<RankingProvider>().checkUnClaimedTeamOfWeekRewards(
       unClaimedWeeklyRewardsCallback: (teamOfWeek) {
         void checkUnClaimedTeamOfSeasonRewards() {
           context.read<RankingProvider>().checkUnClaimedTeamOfSeasonRewards(
-            unClaimedSeasonalRewardsCallback:
-                (teamOfSeason) {
+            unClaimedSeasonalRewardsCallback: (teamOfSeason) {
               if (teamOfSeason.isClaimed == false) {
                 showDialog(
                   context: context,
@@ -235,6 +225,7 @@ class _NavPageState extends State<NavPage> {
             },
           );
         }
+
         if (teamOfWeek.isClaimed == false) {
           showDialog(
             context: context,

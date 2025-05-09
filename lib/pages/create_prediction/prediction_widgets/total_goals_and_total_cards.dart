@@ -15,8 +15,8 @@ import 'commons.dart';
 class TotalGoalsAndTotalCards extends StatefulWidget {
   const TotalGoalsAndTotalCards(
       {super.key,
-      required this.onMoreThanSelected,
-      required this.onLessThanSelected});
+        required this.onMoreThanSelected,
+        required this.onLessThanSelected});
 
   final Function onMoreThanSelected;
   final Function onLessThanSelected;
@@ -42,53 +42,59 @@ class _TotalGoalsAndTotalCardsState extends State<TotalGoalsAndTotalCards> {
           width: double.infinity,
           child: DropdownButtonHideUnderline(
             child: DropdownButton2<String>(
-              icon: const Padding(
-                padding: EdgeInsets.only(right: 16.0),
-                child: Icon(
-                  BetterUnited.arrowDown,
-                  size: 16,
-                  color: Colors.white,
-                ),
-              ),
-              dropdownPadding: EdgeInsets.zero,
               isDense: true,
-              buttonHeight: 44,
-              dropdownElevation: 0,
-              buttonPadding: EdgeInsets.zero,
-              dropdownMaxHeight: context.height / 3,
-              buttonDecoration: BoxDecoration(
-                color: AppColors.textFilled,
-                border: Border.all(
-                  color: AppColors.buttonInnactive,
-                  width: 1,
-                ),
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(4.0),
-                ),
+              buttonStyleData: ButtonStyleData(
+                  padding: EdgeInsets.zero,
+                  height: 44,
+                  decoration: BoxDecoration(
+                    color: AppColors.textFilled,
+                    boxShadow: appBoxShadow,
+                    border: Border.all(
+                      color: AppColors.buttonInnactive,
+                      width: 1,
+                    ),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(4.0),
+                    ),
+                  )
               ),
-              dropdownDecoration: const BoxDecoration(
-                color: AppColors.textFilled,
-                boxShadow: appBoxShadow,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(0.0),
+              iconStyleData: const IconStyleData(
+                icon: Padding(
+                  padding: EdgeInsets.only(right: 16.0),
+                  child: Icon(
+                    BetterUnited.arrowDown,
+                    size: 16,
+                    color: Colors.white,
+                  ),
+                ),
+                iconSize: 16,
+              ),
+              dropdownStyleData: DropdownStyleData(
+                padding: EdgeInsets.zero,
+                maxHeight: context.height / 3,
+                elevation: 0,
+                decoration: const BoxDecoration(
+                  color: AppColors.textFilled,
+                  boxShadow: appBoxShadow,
+                  borderRadius: BorderRadius.all(Radius.circular(0.0)),
                 ),
               ),
               value: text,
               items: list
                   .mapIndexed(
                     (index, name) => DropdownMenuItem<String>(
-                      alignment: Alignment.center,
-                      value: name,
-                      child: Container(
-                        color: AppColors.textFilled,
-                        child: Text(
-                          name,
-                          style:
-                              context.labelBold.copyWith(color: Colors.white),
-                        ),
-                      ),
+                  alignment: Alignment.center,
+                  value: name,
+                  child: Container(
+                    color: AppColors.textFilled,
+                    child: Text(
+                      name,
+                      style:
+                      context.labelBold.copyWith(color: Colors.white),
                     ),
-                  )
+                  ),
+                ),
+              )
                   .toList(),
               onChanged: (name) {
                 if (name != null) {
@@ -129,9 +135,9 @@ class _TotalGoalsAndTotalCardsState extends State<TotalGoalsAndTotalCards> {
               textStyle: AppTextStyles.textStyle6,
               boxStyle: FlutterSliderTooltipBox(
                   decoration: BoxDecoration(
-                color: AppColors.primary,
-                border: Border.all(color: Colors.white, width: 2),
-              ))),
+                    color: AppColors.primary,
+                    border: Border.all(color: Colors.white, width: 2),
+                  ))),
           trackBar: const FlutterSliderTrackBar(
             inactiveTrackBar: BoxDecoration(
               color: AppColors.secondary,

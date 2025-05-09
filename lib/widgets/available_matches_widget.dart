@@ -8,7 +8,8 @@ import '../figma/colors.dart';
 import 'match_card.dart';
 
 class AvailableMatchesWidget extends StatelessWidget {
-  const AvailableMatchesWidget({super.key, required this.matches, this.showTitle = true});
+  const AvailableMatchesWidget(
+      {super.key, required this.matches, this.showTitle = true});
 
   final List<FootballMatch> matches;
   final bool showTitle;
@@ -53,22 +54,22 @@ class AvailableMatchesWidget extends StatelessWidget {
                           awayTeam: match.awayTeam,
                         );
                       },
-                      options: CarouselOptions(
-                        disableCenter: false,
-                        initialPage: 0,
-                        indicatorMargin: 8,
-                        floatingIndicator: false,
-                        height: 100,
-                        viewportFraction: 0.8,
-                        showIndicator: true,
-                        enlargeCenterPage: true,
-                        slideIndicator: const CircularSlideIndicator(
-                            itemSpacing: 12,
-                            indicatorRadius: 4,
-                            currentIndicatorColor: AppColors.primary,
-                            indicatorBackgroundColor:
-                                AppColors.buttonInnactive),
-                      ),
+                      options: FlutterCarouselOptions(
+                          disableCenter: false,
+                          initialPage: 0,
+                          indicatorMargin: 8,
+                          floatingIndicator: false,
+                          height: 100,
+                          viewportFraction: 0.8,
+                          showIndicator: true,
+                          enlargeCenterPage: true,
+                          slideIndicator: CircularSlideIndicator(
+                              slideIndicatorOptions: SlideIndicatorOptions(
+                                  itemSpacing: 12,
+                                  indicatorRadius: 4,
+                                  indicatorBackgroundColor:
+                                      AppColors.buttonInnactive,
+                                  currentIndicatorColor: AppColors.primary))),
                     )
             ],
           )

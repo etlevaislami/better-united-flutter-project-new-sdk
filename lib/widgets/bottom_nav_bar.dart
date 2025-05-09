@@ -1,39 +1,40 @@
 import 'package:flutter/material.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class BottomNavBar extends StatelessWidget {
-  final NavBarEssentials navBarEssentials;
+  final NavBarConfig navBarConfig;
+  final NavBarDecoration navBarDecoration;
+  final ItemAnimation itemAnimation;
+  final double navBarHeight;
 
-  const BottomNavBar({
-    Key? key,
-    this.navBarEssentials = const NavBarEssentials(items: null),
-  }) : super(key: key);
+  const BottomNavBar(
+      {super.key,
+      required this.navBarConfig,
+      required this.navBarHeight,
+      this.navBarDecoration = const NavBarDecoration(),
+      this.itemAnimation = const ItemAnimation()});
 
   Widget _buildItem(
-    PersistentBottomNavBarItem item,
+    ItemConfig item,
     bool isSelected,
     double? height,
   ) {
-    if (navBarEssentials.navBarHeight == 0) {
+    if (height == 0) {
       return const SizedBox.shrink();
     }
 
-    final itemAnimationProperties = navBarEssentials.itemAnimationProperties;
-    final activeColor = isSelected
-        ? item.activeColorSecondary ?? item.activeColorPrimary
-        : item.inactiveColorPrimary ?? item.activeColorPrimary;
+    final activeColor =
+        isSelected ? item.activeForegroundColor : item.inactiveForegroundColor;
 
     return AnimatedContainer(
       width: 100.0,
       height: height! / 1.0,
-      duration: itemAnimationProperties?.duration ??
-          const Duration(milliseconds: 1000),
-      curve: itemAnimationProperties?.curve ?? Curves.ease,
+      duration: const Duration(milliseconds: 1000),
+      curve: Curves.ease,
       alignment: Alignment.center,
       child: AnimatedContainer(
-        duration: itemAnimationProperties?.duration ??
-            const Duration(milliseconds: 1000),
-        curve: itemAnimationProperties?.curve ?? Curves.ease,
+        duration: const Duration(milliseconds: 1000),
+        curve: Curves.ease,
         alignment: Alignment.center,
         height: height / 1.0,
         child: Column(
@@ -46,7 +47,7 @@ class BottomNavBar extends StatelessWidget {
                   size: item.iconSize,
                   color: activeColor,
                 ),
-                child: isSelected ? item.icon : item.inactiveIcon ?? item.icon,
+                child: isSelected ? item.icon : item.inactiveIcon,
               ),
             ),
             if (item.title != null)
@@ -56,9 +57,8 @@ class BottomNavBar extends StatelessWidget {
                   type: MaterialType.transparency,
                   child: DefaultTextStyle.merge(
                     style: TextStyle(
-                      color:
-                          (item.textStyle?.apply(color: activeColor))?.color ??
-                              activeColor,
+                      color: (item.textStyle.apply(color: activeColor)).color ??
+                          activeColor,
                       fontWeight: FontWeight.w400,
                       fontSize: 12.0,
                     ),
@@ -74,41 +74,34 @@ class BottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final selectedItem =
-        navBarEssentials.items![navBarEssentials.selectedIndex!];
-    final selectedItemActiveColor = selectedItem.activeColorPrimary;
+    final selectedItem = navBarConfig.items[navBarConfig.selectedIndex];
+
+    final selectedItemActiveColor = selectedItem.activeForegroundColor;
     final itemWidth = ((MediaQuery.of(context).size.width -
-            ((navBarEssentials.padding?.left ??
-                    MediaQuery.of(context).size.width * 0.05) +
-                (navBarEssentials.padding?.right ??
-                    MediaQuery.of(context).size.width * 0.05))) /
-        navBarEssentials.items!.length);
+            ((MediaQuery.of(context).size.width * 0.05) +
+                (MediaQuery.of(context).size.width * 0.05))) /
+        navBarConfig.items.length);
 
     return Container(
       width: double.infinity,
-      height: navBarEssentials.navBarHeight,
+      height: navBarConfig.navBarHeight,
       padding: EdgeInsets.only(
-        top: navBarEssentials.padding?.top ?? 0.0,
-        left: navBarEssentials.padding?.left ??
-            MediaQuery.of(context).size.width * 0.05,
-        right: navBarEssentials.padding?.right ??
-            MediaQuery.of(context).size.width * 0.05,
-        bottom: navBarEssentials.padding?.bottom ??
-            navBarEssentials.navBarHeight! * 0.1,
+        top: 0.0,
+        left: MediaQuery.of(context).size.width * 0.05,
+        right: MediaQuery.of(context).size.width * 0.05,
+        bottom: navBarConfig.navBarHeight * 0.4,
       ),
       child: Column(
         children: <Widget>[
           Row(
             children: <Widget>[
               AnimatedContainer(
-                duration: navBarEssentials.itemAnimationProperties?.duration ??
-                    const Duration(milliseconds: 300),
-                curve: navBarEssentials.itemAnimationProperties?.curve ??
-                    Curves.ease,
+                duration: const Duration(milliseconds: 300),
+                curve: Curves.ease,
                 color: Colors.transparent,
-                width: navBarEssentials.selectedIndex == 0
+                width: navBarConfig.selectedIndex == 0
                     ? MediaQuery.of(context).size.width * 0.0
-                    : itemWidth * navBarEssentials.selectedIndex!,
+                    : itemWidth * navBarConfig.selectedIndex,
                 height: 4.0,
               ),
               Flexible(
@@ -116,11 +109,8 @@ class BottomNavBar extends StatelessWidget {
                   offset: Offset(itemWidth / 4, 0),
                   child: AnimatedContainer(
                     margin: const EdgeInsets.only(top: 5),
-                    duration:
-                        navBarEssentials.itemAnimationProperties?.duration ??
-                            const Duration(milliseconds: 300),
-                    curve: navBarEssentials.itemAnimationProperties?.curve ??
-                        Curves.ease,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.ease,
                     width: itemWidth / 2,
                     height: 4.0,
                     alignment: Alignment.center,
@@ -139,24 +129,19 @@ class BottomNavBar extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 crossAxisAlignment: CrossAxisAlignment.center,
-                children: navBarEssentials.items!.map((item) {
-                  int index = navBarEssentials.items!.indexOf(item);
+                children: navBarConfig.items.map((item) {
+                  int index = navBarConfig.items.indexOf(item);
                   return Flexible(
                     child: GestureDetector(
                       onTap: () {
-                        if (item.onPressed != null) {
-                          item.onPressed!(
-                              navBarEssentials.selectedScreenBuildContext);
-                        } else {
-                          navBarEssentials.onItemSelected!(index);
-                        }
+                        navBarConfig.onItemSelected(index);
                       },
                       child: Container(
                         color: Colors.transparent,
                         child: _buildItem(
                             item,
-                            navBarEssentials.selectedIndex == index,
-                            navBarEssentials.navBarHeight),
+                            navBarConfig.selectedIndex == index,
+                            navBarConfig.navBarHeight),
                       ),
                     ),
                   );

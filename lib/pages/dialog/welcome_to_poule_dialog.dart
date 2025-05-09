@@ -68,8 +68,7 @@ class WelcomeToPouleDialog extends StatelessWidget {
                 confineInSafeArea: false,
                 text: "challengeMyFriends".tr(),
                 onPressed: () {
-                  context.pop(
-                      result: WelcomeToPouleDialogAction.challengeFriends);
+                  context.pop(WelcomeToPouleDialogAction.challengeFriends);
                 },
               ),
             ),
@@ -78,7 +77,7 @@ class WelcomeToPouleDialog extends StatelessWidget {
             ),
             SecondaryButton.labelText("backToOverview".tr(),
                 withUnderline: true, onPressed: () {
-              context.pop(result: WelcomeToPouleDialogAction.backToOverview);
+              context.pop(WelcomeToPouleDialogAction.backToOverview);
             }),
             const SizedBox(
               height: 10,

@@ -28,7 +28,8 @@ import '../profile/profile_page.dart';
 
 /// Ranking page showing fake data, for tutorials.
 class DummyRankingPage extends StatefulWidget {
-  const DummyRankingPage({Key? key, this.unblurredWeeklyRankingSectionKey}) : super(key: key);
+  const DummyRankingPage({Key? key, this.unblurredWeeklyRankingSectionKey})
+      : super(key: key);
   final GlobalKey? unblurredWeeklyRankingSectionKey;
 
   @override
@@ -81,7 +82,8 @@ class _DummyRankingPageState extends State<DummyRankingPage> {
             ),
           ),
           body: _RankingOverview(
-            unblurredWeeklyRankingSectionKey: widget.unblurredWeeklyRankingSectionKey,
+            unblurredWeeklyRankingSectionKey:
+                widget.unblurredWeeklyRankingSectionKey,
           )),
     );
   }
@@ -97,9 +99,56 @@ class _PaginatedParticipants extends StatefulWidget {
 }
 
 class _PaginatedParticipantsState extends State<_PaginatedParticipants> {
-  final _pagingController = PagingController<int, RankedParticipant>(
-    firstPageKey: 1,
-  );
+  late final PagingController<int, RankedParticipant> _pagingController;
+  final int _pageSize = 5;
+  final int _totalItems = 25;
+
+  @override
+  void initState() {
+    super.initState();
+    _pagingController = PagingController<int, RankedParticipant>(
+      getNextPageKey: (state) {
+        if (state.items!.length >= _totalItems) return null;
+        return (state.items!.length ~/ _pageSize) + 1;
+      },
+      fetchPage: (pageKey) async {
+        await Future.delayed(const Duration(milliseconds: 500));
+
+        final startIndex = (pageKey - 1) * _pageSize;
+        var endIndex = startIndex + _pageSize;
+
+        if (endIndex > _totalItems) {
+          endIndex = _totalItems;
+        }
+
+        final newParticipants = List<RankedParticipant>.generate(
+          endIndex - startIndex,
+          (index) {
+            final rank = startIndex + index + 1;
+            return RankedParticipant(
+              rank,
+              rank,
+              false,
+              null,
+              1000 - (rank * 20),
+              _getLevelName(rank),
+              'User $rank',
+            );
+          },
+        );
+
+        return newParticipants;
+      },
+    );
+  }
+
+  String _getLevelName(int rank) {
+    if (rank <= 5) return 'CLUB LEGEND';
+    if (rank <= 10) return 'STAR PLAYER';
+    if (rank <= 15) return 'GRAND STAND';
+    if (rank <= 20) return 'SUPER SUB';
+    return 'NEWBIE';
+  }
 
   @override
   void dispose() {
@@ -109,51 +158,56 @@ class _PaginatedParticipantsState extends State<_PaginatedParticipants> {
 
   @override
   Widget build(BuildContext context) {
-    const pagingState = PagingState<int, RankedParticipant>();
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
-      child: PagedListView.separated(
-        builderDelegate: PagedChildBuilderDelegate<RankedParticipant>(
-          firstPageErrorIndicatorBuilder: (context) => const SizedBox(),
-          noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
-          firstPageProgressIndicatorBuilder: (context) => Center(
-            child: Container(
-                margin: const EdgeInsets.only(top: 10),
-                height: 24,
-                width: 24,
-                child: const CircularProgressIndicator()),
-          ),
-          itemBuilder: (context, participant, index) {
-            return FriendRankWidget(
-              drawPlus: false,
-              coins: null,
-              isConnectedUser: participant.isLoggedUser,
-              level: -1,
-              name: participant.nickname ?? "undefined".tr(),
-              levelName: participant.levelName,
-              profileUrl: participant.profileIconUrl,
-              points: participant.points,
-              onProfileTap: () {
-                if (participant.isLoggedUser) {
-                  Navigator.of(context).push(MyProfilePage.route());
-                } else {
-                  Navigator.of(context)
-                      .push(ProfilePage.route(userId: participant.userId));
-                }
+      child: PagingListener<int, RankedParticipant>(
+        controller: _pagingController,
+        builder: (context, state, fetchNextPage) {
+          return PagedListView.separated(
+            state: state,
+            fetchNextPage: fetchNextPage,
+            builderDelegate: PagedChildBuilderDelegate<RankedParticipant>(
+              firstPageErrorIndicatorBuilder: (context) => const SizedBox(),
+              noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
+              firstPageProgressIndicatorBuilder: (context) => Center(
+                child: Container(
+                  margin: const EdgeInsets.only(top: 10),
+                  height: 24,
+                  width: 24,
+                  child: const CircularProgressIndicator(),
+                ),
+              ),
+              itemBuilder: (context, participant, index) {
+                return FriendRankWidget(
+                  drawPlus: false,
+                  coins: null,
+                  isConnectedUser: participant.isLoggedUser,
+                  level: -1,
+                  name: participant.nickname ?? "undefined".tr(),
+                  levelName: participant.levelName,
+                  profileUrl: participant.profileIconUrl,
+                  points: participant.points,
+                  onProfileTap: () {
+                    if (participant.isLoggedUser) {
+                      Navigator.of(context).push(MyProfilePage.route());
+                    } else {
+                      Navigator.of(context)
+                          .push(ProfilePage.route(userId: participant.userId));
+                    }
+                  },
+                  wins: -1,
+                  highestOdd: -1,
+                  powerUpsUsed: -1,
+                  rank: participant.rank,
+                );
               },
-              wins: -1,
-              highestOdd: -1,
-              powerUpsUsed: -1,
-              rank: participant.rank,
-            );
-          },
-        ),
-        padding: const EdgeInsets.only(bottom: 50),
-        shrinkWrap: false,
-        separatorBuilder: (BuildContext context, int index) => const SizedBox(
-          height: 16,
-        ),
-        pagingController: _pagingController..value = pagingState,
+            ),
+            padding: const EdgeInsets.only(bottom: 50),
+            shrinkWrap: false,
+            separatorBuilder: (BuildContext context, int index) =>
+                const SizedBox(height: 16),
+          );
+        },
       ),
     );
   }
@@ -169,7 +223,8 @@ class _BottomNavigationBar extends StatelessWidget {
 }
 
 class _RankingOverview extends StatefulWidget {
-  const _RankingOverview({Key? key, this.unblurredWeeklyRankingSectionKey}) : super(key: key);
+  const _RankingOverview({Key? key, this.unblurredWeeklyRankingSectionKey})
+      : super(key: key);
   final GlobalKey? unblurredWeeklyRankingSectionKey;
 
   @override
@@ -457,13 +512,10 @@ class _PeriodContainer extends StatelessWidget {
   }
 
   String _formatWeeklyPeriod(DateTime date) {
-    // Get the week of the month
     int weekOfMonth = ((date.day - 1) / 7).floor() + 1;
-    // Format the month and year
     String month = DateFormat('MMMM').format(date);
     String year = DateFormat('yyyy').format(date);
 
-    // Determine the ordinal indicator for the week
     String weekIndicator = '';
     switch (weekOfMonth) {
       case 1:

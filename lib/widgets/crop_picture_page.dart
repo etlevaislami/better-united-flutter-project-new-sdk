@@ -55,7 +55,7 @@ class _CropPicturePageState extends State<CropPicturePage> {
                       child: Text("cancel".tr(),
                           style: Theme.of(context)
                               .textTheme
-                              .bodyText1
+                              .bodyLarge
                               ?.copyWith(color: Colors.white))),
                   Expanded(
                       child: Text(
@@ -68,7 +68,7 @@ class _CropPicturePageState extends State<CropPicturePage> {
                   )),
                   TextButton(
                     child: Text("done".tr(),
-                        style: Theme.of(context).textTheme.bodyText1?.copyWith(
+                        style: Theme.of(context).textTheme.bodyLarge?.copyWith(
                             color: Colors.white,
                             decoration: TextDecoration.underline,
                             fontWeight: FontWeight.bold)),
@@ -87,7 +87,7 @@ class _CropPicturePageState extends State<CropPicturePage> {
                 backgroundColor: Colors.black,
                 overlayColor: Colors.black.withOpacity(0.6),
                 shape: CustomCropShape.Circle,
-                drawPath: (path, {pathPaint}) =>
+                drawPath: (path, {Color? outlineColor, double? outlineStrokeWidth, Paint? pathPaint}) =>
                     CustomPaint(painter: CustomCropPathPainter(path)),
                 cropPercentage: 0.85,
                 cropController: _controller,

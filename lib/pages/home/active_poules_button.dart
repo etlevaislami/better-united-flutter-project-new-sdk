@@ -4,7 +4,6 @@ import 'package:flutter_better_united/figma/colors.dart';
 import 'package:flutter_better_united/pages/nav_page.dart';
 import 'package:flutter_better_united/pages/poules/active_poule_page.dart';
 import 'package:flutter_better_united/pages/poules/poules_provider.dart';
-import 'package:flutter_better_united/pages/tutorial/start_tutorial_page.dart';
 import 'package:flutter_better_united/widgets/background_container.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -19,8 +18,8 @@ class ActivePoulesButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final poulesCount = context.watch<PoulesProvider>().activePoulesCount;
     return Padding(
-      padding: const EdgeInsets.only(
-          left: 24, right: 24, bottom: NavPage.navBarHeight + 33),
+      padding:  EdgeInsets.only(
+          left: 24, right: 24, bottom: (NavPage.navBarHeight / 3).clamp(0.0, double.infinity) + MediaQuery.of(context).padding.bottom),
       child: GestureDetector(
         onTap: () {
           Navigator.of(context, rootNavigator: true)

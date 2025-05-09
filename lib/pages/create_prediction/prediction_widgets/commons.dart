@@ -22,10 +22,10 @@ import 'home_draw_away.dart';
 class PredictionContainer extends StatelessWidget {
   const PredictionContainer(
       {super.key,
-      required this.children,
-      required this.title,
-      required this.isFolded,
-      required this.isEnabled});
+        required this.children,
+        required this.title,
+        required this.isFolded,
+        required this.isEnabled});
 
   final String title;
   final List<Widget> children;
@@ -41,17 +41,17 @@ class PredictionContainer extends StatelessWidget {
         onTap: isEnabled
             ? null
             : () {
-                WarningToast.showToast(context,
-                    title: "betAlreadyMade".tr(),
-                    subtitle: "betTypeMaximumAllowed".tr());
-              },
+          WarningToast.showToast(context,
+              title: "betAlreadyMade".tr(),
+              subtitle: "betTypeMaximumAllowed".tr());
+        },
         child: AbsorbPointer(
           absorbing: !isEnabled,
           child: Opacity(
             opacity: isEnabled ? 1 : 0.5,
             child: Padding(
               padding:
-                  const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
+              const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: children,
@@ -67,8 +67,8 @@ class PredictionContainer extends StatelessWidget {
 class _ExpandablePanel extends StatefulWidget {
   const _ExpandablePanel(
       {required this.expandedChild,
-      required this.title,
-      required this.initialExpanded});
+        required this.title,
+        required this.initialExpanded});
 
   final String title;
   final Widget expandedChild;
@@ -135,9 +135,9 @@ class _ExpandablePanelState extends State<_ExpandablePanel> {
 class PointsCard extends StatelessWidget {
   const PointsCard(
       {super.key,
-      required this.text,
-      required this.points,
-      this.widthRatio = 0.8});
+        required this.text,
+        required this.points,
+        this.widthRatio = 0.8});
 
   final String text;
   final int points;
@@ -168,10 +168,10 @@ class PointsCard extends StatelessWidget {
 class BetCard extends StatelessWidget {
   const BetCard(
       {super.key,
-      this.leadingChild,
-      this.trailingChild,
-      this.centerChild,
-      this.widthRatio = 0.8});
+        this.leadingChild,
+        this.trailingChild,
+        this.centerChild,
+        this.widthRatio = 0.8});
 
   final Widget? leadingChild;
   final Widget? trailingChild;
@@ -242,10 +242,10 @@ class TeamWithPlayersBet {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is TeamWithPlayersBet &&
-          runtimeType == other.runtimeType &&
-          team == other.team &&
-          players == other.players;
+          other is TeamWithPlayersBet &&
+              runtimeType == other.runtimeType &&
+              team == other.team &&
+              players == other.players;
 
   ///ignore
   @override
@@ -257,9 +257,9 @@ class TeamWithPlayersBet {
 class TeamWithPlayersBetWidget extends StatefulWidget {
   const TeamWithPlayersBetWidget(
       {super.key,
-      required this.homeTeam,
-      required this.awayTeam,
-      required this.onSelected});
+        required this.homeTeam,
+        required this.awayTeam,
+        required this.onSelected});
 
   final TeamWithPlayersBet homeTeam;
   final TeamWithPlayersBet awayTeam;
@@ -282,42 +282,47 @@ class _TeamWithPlayersBetWidgetState extends State<TeamWithPlayersBetWidget> {
           width: double.infinity,
           child: DropdownButtonHideUnderline(
             child: DropdownButton2<TeamWithPlayersBet>(
-              icon: const Padding(
-                padding: EdgeInsets.only(right: 16.0),
-                child: Icon(
-                  BetterUnited.arrowDown,
-                  size: 16,
-                  color: Colors.white,
-                ),
-              ),
-              dropdownPadding: EdgeInsets.zero,
               isDense: true,
-              buttonHeight: 44,
-              dropdownElevation: 0,
-              buttonPadding: EdgeInsets.zero,
-              dropdownMaxHeight: context.height / 3,
-              buttonDecoration: BoxDecoration(
-                color: AppColors.textFilled,
-                border: Border.all(
-                  color: AppColors.buttonInnactive,
-                  width: 1,
+              buttonStyleData: ButtonStyleData(
+                  padding: EdgeInsets.zero,
+                  height: 44,
+                  decoration: BoxDecoration(
+                    color: AppColors.textFilled,
+                    boxShadow: appBoxShadow,
+                    border: Border.all(
+                      color: AppColors.buttonInnactive,
+                      width: 1,
+                    ),
+                    borderRadius: const BorderRadius.all(
+                      Radius.circular(4.0),
+                    ),
+                  )),
+              iconStyleData: const IconStyleData(
+                icon: Padding(
+                  padding: EdgeInsets.only(right: 16.0),
+                  child: Icon(
+                    BetterUnited.arrowDown,
+                    size: 16,
+                    color: Colors.white,
+                  ),
                 ),
-                borderRadius: const BorderRadius.all(
-                  Radius.circular(4.0),
-                ),
+                iconSize: 16,
               ),
-              dropdownDecoration: const BoxDecoration(
-                color: AppColors.textFilled,
-                boxShadow: appBoxShadow,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(0.0),
+              dropdownStyleData: DropdownStyleData(
+                padding: EdgeInsets.zero,
+                maxHeight: context.height / 3,
+                elevation: 0,
+                decoration: const BoxDecoration(
+                  color: AppColors.textFilled,
+                  boxShadow: appBoxShadow,
+                  borderRadius: BorderRadius.all(Radius.circular(0.0)),
                 ),
               ),
               value: selectedTeam,
               items: list
                   .mapIndexed(
                     (index, teamWithPlayersBet) =>
-                        DropdownMenuItem<TeamWithPlayersBet>(
+                    DropdownMenuItem<TeamWithPlayersBet>(
                       alignment: Alignment.center,
                       value: teamWithPlayersBet,
                       child: Container(
@@ -340,7 +345,7 @@ class _TeamWithPlayersBetWidgetState extends State<TeamWithPlayersBetWidget> {
                         ),
                       ),
                     ),
-                  )
+              )
                   .toList(),
               onChanged: (team) {
                 if (team != null) {
@@ -380,9 +385,9 @@ class _TeamWithPlayersBetWidgetState extends State<TeamWithPlayersBetWidget> {
 class _PlayerNamesCard extends StatelessWidget {
   const _PlayerNamesCard(
       {required this.name,
-      required this.points,
-      this.position,
-      required this.onPointTap});
+        required this.points,
+        this.position,
+        required this.onPointTap});
 
   final String name;
   final int points;
@@ -396,17 +401,17 @@ class _PlayerNamesCard extends StatelessWidget {
         position == null
             ? const SizedBox()
             : Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Text(
-                  position.toString(),
-                  style: context.labelBold.copyWith(color: AppColors.primary),
-                ),
-              ),
+          padding: const EdgeInsets.symmetric(horizontal: 24),
+          child: Text(
+            position.toString(),
+            style: context.labelBold.copyWith(color: AppColors.primary),
+          ),
+        ),
         Expanded(
             child: Text(
-          name,
-          style: context.labelBold.copyWith(color: Colors.white),
-        )),
+              name,
+              style: context.labelBold.copyWith(color: Colors.white),
+            )),
         GestureDetector(
           onTap: onPointTap,
           child: SizedBox(

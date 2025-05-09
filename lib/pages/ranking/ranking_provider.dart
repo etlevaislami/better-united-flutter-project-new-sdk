@@ -17,7 +17,7 @@ class RankingProvider with ChangeNotifier {
   RankingType rankingType = RankingType.weekly;
 
   PagingState<int, RankedParticipant> pagingState =
-      const PagingState<int, RankedParticipant>();
+   PagingState<int, RankedParticipant>(pages: [], keys: [], hasNextPage: true, error: null, isLoading: false);
 
   bool isRankingsShown = false;
 
@@ -34,31 +34,45 @@ class RankingProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  getRankings({required int pageNumber}) async {
+  Future<List<RankedParticipant>> fetchPage(int pageKey) async {
+    final weeklyRankings = await _rankingRepository.getRankings(
+      page: pageKey,
+      type: rankingType,
+    );
+    return weeklyRankings.data;
+  }
+
+  void updatePagingState(List<List<RankedParticipant>> pages, List<int> keys, bool hasNextPage, [Object? error]) {
+    pagingState = PagingState<int, RankedParticipant>(
+      pages: pages,
+      keys: keys,
+      hasNextPage: hasNextPage,
+      error: error,
+      isLoading: false,
+    );
+    notifyListeners();
+  }
+
+  Future<void> getRankings({required int pageNumber}) async {
     try {
       final weeklyRankings = await _rankingRepository.getRankings(
-          page: pageNumber, type: rankingType);
-
-      if (pagingState.nextPageKey == null) {
-        pagingState.itemList?.clear();
-      }
-
-      final previousItems = pagingState.itemList ?? [];
-      final itemList = previousItems + weeklyRankings.data;
-      pagingState = PagingState<int, RankedParticipant>(
-        itemList: itemList,
-        error: null,
-        nextPageKey: weeklyRankings.isLastPage() ? null : pageNumber + 1,
+        page: pageNumber,
+        type: rankingType,
       );
-      notifyListeners();
+      // Build new pages and keys
+      final List<List<RankedParticipant>> newPages = List.from(pagingState.pages ?? []);
+      final List<int> newKeys = List.from(pagingState.keys ?? []);
+      if (pageNumber == 1) {
+        newPages.clear();
+        newKeys.clear();
+      }
+      newPages.add(weeklyRankings.data);
+      newKeys.add(pageNumber);
+      final bool hasNext = !weeklyRankings.isLastPage();
+      updatePagingState(newPages, newKeys, hasNext);
     } catch (error) {
       logger.e(error);
-      pagingState = PagingState<int, RankedParticipant>(
-        itemList: pagingState.itemList,
-        error: error,
-        nextPageKey: pagingState.nextPageKey,
-      );
-      notifyListeners();
+      updatePagingState(pagingState.pages ?? [], pagingState.keys ?? [], pagingState.hasNextPage ?? false, error);
     }
   }
 
@@ -67,7 +81,7 @@ class RankingProvider with ChangeNotifier {
     this.rankingOverview = null;
     notifyListeners();
     final rankingOverview =
-        await _rankingRepository.getRankingOverview(type: type);
+    await _rankingRepository.getRankingOverview(type: type);
     this.rankingOverview = rankingOverview;
     notifyListeners();
   }
@@ -99,7 +113,7 @@ class RankingProvider with ChangeNotifier {
 
   checkUnClaimedTeamOfSeasonRewards(
       {required Function(TeamOfSeason teamOfSeason)
-        unClaimedSeasonalRewardsCallback}) async {
+      unClaimedSeasonalRewardsCallback}) async {
     final teamOfSeason = await _rankingRepository.getTeamOfSeason();
     unClaimedSeasonalRewardsCallback(teamOfSeason);
   }

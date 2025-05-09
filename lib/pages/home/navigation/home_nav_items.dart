@@ -1,29 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_better_united/constants/app_colors.dart';
 import 'package:flutter_better_united/util/betterUnited_icons.dart';
-import 'package:persistent_bottom_nav_bar_v2/persistent-tab-view.dart';
+import 'package:persistent_bottom_nav_bar_v2/persistent_bottom_nav_bar_v2.dart';
 
 class HomeNavItems {
-  static List<PersistentBottomNavBarItem> getNavItems({
+  static List<ItemConfig> getNavItems({
     GlobalKey? homeIconKey,
     GlobalKey? rankingIconKey,
     GlobalKey? shopIconKey,
     GlobalKey? profileIconKey,
   }) {
     return [
-      PersistentBottomNavBarItem(
+      ItemConfig(
         icon: Icon(key: homeIconKey, BetterUnited.home),
         iconSize: 25,
-        activeColorPrimary: AppColors.primaryColor,
-        inactiveColorPrimary: const Color(0xff9A9A9A),
+        activeForegroundColor: AppColors.primaryColor,
+        inactiveForegroundColor: const Color(0xff9A9A9A),
       ),
-      PersistentBottomNavBarItem(
+      ItemConfig(
         icon: Icon(key: rankingIconKey, BetterUnited.ranking),
-        activeColorPrimary: AppColors.primaryColor,
+        activeForegroundColor: AppColors.primaryColor,
         iconSize: 25,
-        inactiveColorPrimary: const Color(0xff9A9A9A),
+        inactiveForegroundColor: const Color(0xff9A9A9A),
       ),
-      PersistentBottomNavBarItem(
+      ItemConfig(
         icon: Stack(
           key: shopIconKey,
           fit: StackFit.passthrough,
@@ -50,15 +50,15 @@ class HomeNavItems {
             )
           ],
         ),
-        activeColorPrimary: AppColors.primaryColor,
+        activeForegroundColor: AppColors.primaryColor,
         iconSize: 25,
-        inactiveColorPrimary: const Color(0xff9A9A9A),
+        inactiveBackgroundColor: const Color(0xff9A9A9A),
       ),
-      PersistentBottomNavBarItem(
+      ItemConfig(
         icon: Icon(key: profileIconKey, BetterUnited.profile),
-        activeColorPrimary: AppColors.primaryColor,
+        activeForegroundColor: AppColors.primaryColor,
         iconSize: 25,
-        inactiveColorPrimary: const Color(0xff9A9A9A),
+        inactiveForegroundColor: const Color(0xff9A9A9A),
       ),
     ];
   }

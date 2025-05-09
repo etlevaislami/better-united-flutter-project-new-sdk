@@ -58,17 +58,19 @@ class NotificationManager {
     flutterLocalNotificationsPlugin.initialize(
       const InitializationSettings(
           android: AndroidInitializationSettings("background"),
-          iOS: IOSInitializationSettings(
+          iOS: DarwinInitializationSettings(
             requestAlertPermission: false,
             requestBadgePermission: false,
             requestSoundPermission: false,
           )),
-      onSelectNotification: (payload) {
+      onDidReceiveNotificationResponse: (NotificationResponse response) async {
+        final String? payload = response.payload;
         logger.e(payload);
-        if (payload != null) didReceiveLocalNotificationSubject.add(payload);
+        if (payload != null) {
+          didReceiveLocalNotificationSubject.add(payload);
+        }
       },
     );
-
     await flutterLocalNotificationsPlugin
         .resolvePlatformSpecificImplementation<
             AndroidFlutterLocalNotificationsPlugin>()
@@ -81,7 +83,7 @@ class NotificationManager {
                 .getNotificationAppLaunchDetails();
 
     if (notificationAppLaunchDetails?.didNotificationLaunchApp ?? false) {
-      selectedNotificationPayload = notificationAppLaunchDetails!.payload;
+      selectedNotificationPayload = notificationAppLaunchDetails!.notificationResponse!.payload;
     }
 
     RemoteMessage? initialData =

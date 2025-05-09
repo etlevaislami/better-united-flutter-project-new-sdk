@@ -2,7 +2,7 @@ import UIKit
 import Flutter
 import UserNotifications
 import KeychainAccess
-@UIApplicationMain
+@main
 @objc class AppDelegate: FlutterAppDelegate {
     let KEY_CHAIN_SERVICE_NAME = "flutter_secure_storage_service"
     let KEY_FIRST_TIME = "firstTimeLaunchOccurred"

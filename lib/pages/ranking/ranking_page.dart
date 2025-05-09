@@ -84,16 +84,30 @@ class _PaginatedParticipants extends StatefulWidget {
 }
 
 class _PaginatedParticipantsState extends State<_PaginatedParticipants> {
-  final _pagingController = PagingController<int, RankedParticipant>(
-    firstPageKey: 1,
-  );
+  late final PagingController<int, RankedParticipant> _pagingController;
 
   @override
   void initState() {
     super.initState();
-    _pagingController.addPageRequestListener((pageKey) {
-      context.read<RankingProvider>().getRankings(pageNumber: pageKey);
-    });
+    final provider = context.read<RankingProvider>();
+    _pagingController = PagingController<int, RankedParticipant>(
+      getNextPageKey: (state) {
+        // Get the next page key based on last key
+        if (state.keys != null && state.keys!.isNotEmpty) {
+          return (state.keys!.last) + 1;
+        }
+        return 1;
+      },
+      fetchPage: (pageKey) async {
+        await provider.getRankings(pageNumber: pageKey);
+        // Return the items for this page from the provider's pagingState
+        final idx = provider.pagingState.keys?.indexOf(pageKey) ?? -1;
+        if (idx >= 0 && provider.pagingState.pages != null && idx < provider.pagingState.pages!.length) {
+          return provider.pagingState.pages![idx];
+        }
+        return [];
+      },
+    );
   }
 
   @override
@@ -104,21 +118,25 @@ class _PaginatedParticipantsState extends State<_PaginatedParticipants> {
 
   @override
   Widget build(BuildContext context) {
-    final pagingState = context.watch<RankingProvider>().pagingState;
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
-      child: PagedListView.separated(
-        builderDelegate: PagedChildBuilderDelegate<RankedParticipant>(
-          firstPageErrorIndicatorBuilder: (context) => const SizedBox(),
-          noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
-          firstPageProgressIndicatorBuilder: (context) => Center(
-            child: Container(
-                margin: const EdgeInsets.only(top: 10),
-                height: 24,
-                width: 24,
-                child: const CircularProgressIndicator()),
-          ),
-          itemBuilder: (context, participant, index) {
+      child: PagingListener<int, RankedParticipant>(
+        controller: _pagingController,
+        builder: (context, state, fetchNextPage) {
+          return PagedListView.separated(
+            state: state,
+            fetchNextPage: fetchNextPage,
+            builderDelegate: PagedChildBuilderDelegate<RankedParticipant>(
+              firstPageErrorIndicatorBuilder: (context) => const SizedBox(),
+              noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
+              firstPageProgressIndicatorBuilder: (context) => Center(
+                child: Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    height: 24,
+                    width: 24,
+                    child: const CircularProgressIndicator()),
+              ),
+              itemBuilder: (context, participant, index) {
             return FriendRankWidget(
               drawPlus: false,
               coins: null,
@@ -148,9 +166,10 @@ class _PaginatedParticipantsState extends State<_PaginatedParticipants> {
         separatorBuilder: (BuildContext context, int index) => const SizedBox(
           height: 16,
         ),
-        pagingController: _pagingController..value = pagingState,
-      ),
-    );
+      );
+    },
+  ),
+);
   }
 }
 
@@ -414,6 +433,7 @@ class _Banner extends StatelessWidget {
             }
           : null,
       child: Container(
+        height: 130,
         padding: const EdgeInsets.all(18),
         alignment: Alignment.centerLeft,
         width: double.infinity,
@@ -439,7 +459,7 @@ class _Banner extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              (isWeekly ? "teamOfTheWeekMultiLine" : "teamOfTheSeasonMultiLine")
+              (isWeekly ? "teamOfTheWeekMultiLine".tr() : "teamOfTheSeasonMultiLine".tr())
                   .tr()
                   .toUpperCase(),
               style: context.titleH1White,

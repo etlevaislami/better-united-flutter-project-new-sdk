@@ -7,13 +7,13 @@ class ErrorInterceptor extends Interceptor {
   ErrorInterceptor();
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
     switch (err.type) {
-      case DioErrorType.connectTimeout:
-      case DioErrorType.sendTimeout:
-      case DioErrorType.receiveTimeout:
+      case DioExceptionType.connectionTimeout:
+      case DioExceptionType.sendTimeout:
+      case DioExceptionType.receiveTimeout:
         throw DeadlineExceededException(err.requestOptions);
-      case DioErrorType.response:
+      case DioExceptionType.badResponse:
         switch (err.response?.statusCode) {
           case 400:
             throw BadRequestException(err);
@@ -32,9 +32,9 @@ class ErrorInterceptor extends Interceptor {
           default:
         }
         break;
-      case DioErrorType.cancel:
+      case DioExceptionType.cancel:
         break;
-      case DioErrorType.other:
+      case DioExceptionType.unknown:
         showToast("noInternetConnection".tr());
         throw NoInternetConnectionException(err);
     }
@@ -46,18 +46,18 @@ class ErrorInterceptor extends Interceptor {
 class BadRequestException extends ExtendedDioError {
   late final String apiErrorCode;
 
-  BadRequestException(DioError error) : super(error) {
+  BadRequestException(DioException error) : super(error) {
     apiErrorCode = (error.response?.data as Map)["error"];
   }
 }
 
-class ExtendedDioError extends DioError {
-  ExtendedDioError(DioError error)
+class ExtendedDioError extends DioException {
+  ExtendedDioError(DioException error)
       : super(
-            requestOptions: error.requestOptions,
-            response: error.response,
-            error: error.error,
-            type: error.type);
+      requestOptions: error.requestOptions,
+      response: error.response,
+      error: error.error,
+      type: error.type);
 
   @override
   String toString() {
@@ -68,7 +68,7 @@ class ExtendedDioError extends DioError {
 
     msg += "\nUrl:${requestOptions.uri}";
 
-    if (type == DioErrorType.response) {
+    if (type == DioExceptionType.badResponse) {
       msg += "\nAPI response:$response";
     }
     if (super.stackTrace != null) {
@@ -79,34 +79,34 @@ class ExtendedDioError extends DioError {
 }
 
 class InternalServerErrorException extends ExtendedDioError {
-  InternalServerErrorException(DioError error) : super(error);
+  InternalServerErrorException(DioException error) : super(error);
 }
 
 class ConflictException extends ExtendedDioError {
-  ConflictException(DioError error) : super(error);
+  ConflictException(DioException error) : super(error);
 }
 
 class UnauthorizedException extends ExtendedDioError {
-  UnauthorizedException(DioError error) : super(error);
+  UnauthorizedException(DioException error) : super(error);
 }
 
 class ForbiddenException extends ExtendedDioError {
   late final String apiErrorCode;
 
-  ForbiddenException(DioError error) : super(error) {
+  ForbiddenException(DioException error) : super(error) {
     apiErrorCode = (error.response?.data as Map)["error"];
   }
 }
 
 class NotFoundException extends ExtendedDioError {
-  NotFoundException(DioError error) : super(error);
+  NotFoundException(DioException error) : super(error);
 }
 
 class NoInternetConnectionException extends ExtendedDioError {
-  NoInternetConnectionException(DioError error) : super(error);
+  NoInternetConnectionException(DioException error) : super(error);
 }
 
-class DeadlineExceededException extends DioError {
+class DeadlineExceededException extends DioException {
   DeadlineExceededException(RequestOptions r) : super(requestOptions: r);
 
   @override

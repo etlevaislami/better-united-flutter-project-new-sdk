@@ -56,21 +56,21 @@ class Carousel extends StatelessWidget {
           ),
         );
       },
-      options: CarouselOptions(
-        disableCenter: false,
-        initialPage: 0,
-        indicatorMargin: 8,
-        floatingIndicator: false,
-        height: 130,
-        viewportFraction: 0.8,
-        showIndicator: true,
-        enlargeCenterPage: true,
-        slideIndicator: const CircularSlideIndicator(
-            itemSpacing: 12,
-            indicatorRadius: 4,
-            currentIndicatorColor: AppColors.primary,
-            indicatorBackgroundColor: AppColors.buttonInnactive),
-      ),
+      options: FlutterCarouselOptions(
+          disableCenter: false,
+          initialPage: 0,
+          indicatorMargin: 8,
+          floatingIndicator: false,
+          height: 130,
+          viewportFraction: 0.8,
+          showIndicator: true,
+          enlargeCenterPage: true,
+          slideIndicator: CircularSlideIndicator(
+              slideIndicatorOptions: SlideIndicatorOptions(
+                  itemSpacing: 12,
+                  indicatorRadius: 4,
+                  currentIndicatorColor: AppColors.primary,
+                  indicatorBackgroundColor: AppColors.buttonInnactive))),
     );
   }
 }

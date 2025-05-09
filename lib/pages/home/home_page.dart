@@ -33,8 +33,10 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: Column(
-        children: [BackgroundWidget(), HomePageContent()],
+      body: SingleChildScrollView(
+        child: Column(
+          children: [BackgroundWidget(), HomePageContent()],
+        ),
       ),
       bottomNavigationBar: ActivePoulesButton(),
     );

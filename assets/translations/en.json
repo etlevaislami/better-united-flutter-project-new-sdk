@@ -206,6 +206,7 @@
   "device": "Device: {}",
   "mailSubject": "Feedback Better United",
   "notNow": "Not now",
+  "networkError": "Network connection error. Please check your internet connection and try again.",
   "settingsPushOption5": "Account notifications",
   "noInternetConnection": "No internet connection",
   "accessTokenExpired": "Access expired, please login again",
@@ -473,5 +474,7 @@
   "topUpCoinsBeforeJoining": "Please top up your coins before joining a league.",
   "tutorial_start_description": "Step into the world of Better United, a realm where your match predictions ignite excitement and the very legends of the club are brought to life!",
   "betAlreadyMade": "You've already made this bet.",
-  "betTypeMaximumAllowed": "You can place only one bet of the same\nbet type per game."
+  "betTypeMaximumAllowed": "You can place only one bet of the same\nbet type per game.",
+  "teamOfTheWeekMultiLine": "TEAM OF THE\nWEEK",
+  "teamOfTheSeasonMultiLine": "TEAM OF THE\nSEASON"
 }

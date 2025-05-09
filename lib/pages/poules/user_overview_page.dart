@@ -295,43 +295,49 @@ class _PredictionListState extends State<_PredictionList>
     with SingleTickerProviderStateMixin {
   late final TabController _tabController =
       TabController(length: 2, vsync: this);
-  final _pagingController = PagingController<int, TipDetail>(
-    firstPageKey: 1,
+
+  Future<List<TipDetail>> fetchPage(int pageKey) async {
+    final tips = await _tipProvider.getTips(pageNumber: pageKey);
+    return tips;
+  }
+
+  late final PagingController<int, TipDetail> _pagingController =
+      PagingController<int, TipDetail>(
+    getNextPageKey: (state) {
+      final keys = state.keys ?? [];
+      return keys.isEmpty ? 1 : keys.last + 1;
+    },
+    fetchPage: fetchPage,
   );
+
   late final TipProvider _tipProvider = context.read<TipProvider>();
 
   @override
   void initState() {
     super.initState();
-    _observePageChange();
     _tabController.addListener(() {
       if (_tabController.index == 0) {
         _tipProvider.updateFilterCriteria(
-            FilterCriteria.copy(_tipProvider.filterCriteria)
-              ..onlyActive = true
-              ..onlyHistory = false);
+          FilterCriteria.copy(_tipProvider.filterCriteria)
+            ..onlyActive = true
+            ..onlyHistory = false,
+        );
       } else {
         _tipProvider.updateFilterCriteria(
-            FilterCriteria.copy(_tipProvider.filterCriteria)
-              ..onlyActive = false
-              ..onlyHistory = true);
+          FilterCriteria.copy(_tipProvider.filterCriteria)
+            ..onlyActive = false
+            ..onlyHistory = true,
+        );
       }
+      _pagingController.refresh();
     });
   }
 
   @override
-  dispose() {
+  void dispose() {
     _pagingController.dispose();
     _tabController.dispose();
     super.dispose();
-  }
-
-  _observePageChange() {
-    _pagingController.addPageRequestListener(
-      (pageKey) {
-        _tipProvider.getTips(pageNumber: pageKey);
-      },
-    );
   }
 
   @override
@@ -340,9 +346,7 @@ class _PredictionListState extends State<_PredictionList>
       child: Column(
         children: [
           Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 24.0,
-            ),
+            padding: const EdgeInsets.symmetric(horizontal: 24.0),
             child: CustomTabBar(
               tabController: _tabController,
               firstTabText: "active".tr(),
@@ -350,50 +354,56 @@ class _PredictionListState extends State<_PredictionList>
             ),
           ),
           Expanded(
-              child: PagedListView.separated(
-            builderDelegate: PagedChildBuilderDelegate<TipDetail>(
-              firstPageErrorIndicatorBuilder: (context) => SizedBox(),
-              noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
-              firstPageProgressIndicatorBuilder: (context) => Center(
-                child: Container(
-                    margin: const EdgeInsets.only(top: 10),
-                    height: 24,
-                    width: 24,
-                    child: const CircularProgressIndicator()),
-              ),
-              itemBuilder: (context, tip, index) {
-                return PredictionCard(
-                  tipSettlement: tip.tipSettlement,
-                  startsAt: tip.matchStartsAt,
-                  onProfileTap: () => () {
-                    Navigator.of(context).push(ProfilePage.route(
-                      userId: tip.userId,
-                    ));
-                  },
-                  rank: tip.userLevel,
-                  photoUrl: tip.userProfilePictureUrl,
-                  points: tip.points,
-                  pouleName: widget.pouleName,
-                  homeTeam: tip.homeTeam,
-                  awayTeam: tip.awayTeam,
-                  leagueName: tip.leagueName,
-                  createdAt: tip.tipCreatedAt,
-                  levelName: tip.userLevelName,
-                  name: tip.userNickname,
-                  odd: tip.hints,
-                  isConnectedUser: tip.isOwn,
-                  isVoided: tip.isTipVoided,
+            child: PagingListener<int, TipDetail>(
+              controller: _pagingController,
+              builder:
+                  (context, PagingState<int, TipDetail> state, fetchNextPage) {
+                return PagedListView<int, TipDetail>.separated(
+                  state: state,
+                  fetchNextPage: fetchNextPage,
+                  builderDelegate: PagedChildBuilderDelegate<TipDetail>(
+                    firstPageErrorIndicatorBuilder: (context) => SizedBox(),
+                    noItemsFoundIndicatorBuilder: (context) => const SizedBox(),
+                    firstPageProgressIndicatorBuilder: (context) => Center(
+                      child: Container(
+                        margin: const EdgeInsets.only(top: 10),
+                        height: 24,
+                        width: 24,
+                        child: const CircularProgressIndicator(),
+                      ),
+                    ),
+                    itemBuilder: (context, tip, index) {
+                      return PredictionCard(
+                        tipSettlement: tip.tipSettlement,
+                        startsAt: tip.matchStartsAt,
+                        onProfileTap: () => () {
+                          Navigator.of(context)
+                              .push(ProfilePage.route(userId: tip.userId));
+                        },
+                        rank: tip.userLevel,
+                        photoUrl: tip.userProfilePictureUrl,
+                        points: tip.points,
+                        pouleName: widget.pouleName,
+                        homeTeam: tip.homeTeam,
+                        awayTeam: tip.awayTeam,
+                        leagueName: tip.leagueName,
+                        createdAt: tip.tipCreatedAt,
+                        levelName: tip.userLevelName,
+                        name: tip.userNickname,
+                        odd: tip.hints,
+                        isConnectedUser: tip.isOwn,
+                        isVoided: tip.isTipVoided,
+                      );
+                    },
+                  ),
+                  padding: const EdgeInsets.only(bottom: 50, top: 20),
+                  shrinkWrap: false,
+                  separatorBuilder: (BuildContext context, int index) =>
+                      const SizedBox(height: 16),
                 );
               },
             ),
-            padding: const EdgeInsets.only(bottom: 50, top: 20),
-            shrinkWrap: false,
-            separatorBuilder: (BuildContext context, int index) =>
-                const SizedBox(
-              height: 16,
-            ),
-            pagingController: _pagingController..value = widget.pagingState,
-          ))
+          ),
         ],
       ),
     );

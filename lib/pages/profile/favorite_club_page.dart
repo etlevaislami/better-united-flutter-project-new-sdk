@@ -70,7 +70,7 @@ class _FavoriteClubsPageState extends State<FavoriteClubsPage> {
                   children: [
                     InfoBubble(
                         description:
-                            "Favourite club matches will be suggested to you."),
+                        "Favourite club matches will be suggested to you."),
                   ],
                 ),
               ),
@@ -129,25 +129,27 @@ class FavoriteClubSelection extends StatefulWidget {
 
 class _FavoriteClubSelectionState extends State<FavoriteClubSelection> {
   final TextEditingController _textController = TextEditingController();
-  final _pagingController = PagingController<int, Team>(
-    firstPageKey: 1,
+  late final _pagingController = PagingController<int, Team>(
+    getNextPageKey: (state) => (state.keys?.last ?? 0) + 1,
+    fetchPage: _fetchPage,
   );
   final _textDebouncer = Debouncer();
 
   @override
   void initState() {
     super.initState();
-    _observePageChange();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _pagingController.fetchNextPage();
+    });
   }
 
-  _observePageChange() {
+  Future<List<Team>> _fetchPage(int pageKey) async {
     final profileProvider = context.read<ProfileProvider>();
-    _pagingController.addPageRequestListener(
-      (pageKey) {
-        profileProvider.getTeams(
-            pageNumber: pageKey, searchTerm: profileProvider.searchTerm);
-      },
-    );
+    if (profileProvider.searchTerm.isEmpty) {
+      await profileProvider.getTeams(
+          pageNumber: pageKey, searchTerm: profileProvider.searchTerm);
+    }
+    return [Team(-1, "", "")];
   }
 
   @override
@@ -161,7 +163,6 @@ class _FavoriteClubSelectionState extends State<FavoriteClubSelection> {
   @override
   Widget build(BuildContext context) {
     final pagingState = context.watch<ProfileProvider>().pagingState;
-    print(pagingState.itemList?.length);
     final profileProvider = context.read<ProfileProvider>();
     return Column(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -180,79 +181,103 @@ class _FavoriteClubSelectionState extends State<FavoriteClubSelection> {
             onChanged: (value) {
               if (value.isNotEmpty && value != profileProvider.searchTerm) {
                 _textDebouncer.run(
-                  () => profileProvider.searchTeam(value),
+                      () {
+                    profileProvider.searchTerm = value;
+                    profileProvider.searchTeam(value);
+                  },
                 );
+              } else if (value.isEmpty && profileProvider.searchTerm.isNotEmpty) {
+                profileProvider.searchTerm = "";
+                _pagingController.fetchNextPage();
               }
             },
           ),
         ),
         Expanded(
-          child: (pagingState.status == PagingStatus.noItemsFound)
+          child: ((pagingState.pages?.isEmpty ?? true) && _textController.text.isNotEmpty && !(pagingState.isLoading ?? false))
               ? CustomScrollView(
-                  slivers: [
-                    SliverFillRemaining(
-                      child: Center(
-                        child: EmptySearchResult(
-                          query: _textController.text,
-                          text: "favoriteClubMatchNotFound".tr(),
-                        ),
-                      ),
-                    )
-                  ],
-                )
-              : SingleChildScrollView(
-                  child: Column(
-                    children: [
-                      const SizedBox(
-                        height: 32,
-                      ),
-                      SizedBox(
-                        height: 400,
-                        child: PagedGridView(
-                          pagingController: _pagingController
-                            ..value = pagingState,
-                          builderDelegate: PagedChildBuilderDelegate<Team>(
-                            noItemsFoundIndicatorBuilder: (context) =>
-                                SizedBox(),
-                            firstPageProgressIndicatorBuilder: (context) =>
-                                Center(
-                              child: Container(
-                                  margin: const EdgeInsets.only(top: 10),
-                                  height: 24,
-                                  width: 24,
-                                  child: const CircularProgressIndicator()),
-                            ),
-                            itemBuilder: (context, item, index) {
-                              return GestureDetector(
-                                onTap: () {
-                                  context
-                                      .read<ProfileProvider>()
-                                      .toggleTeam(item);
-                                },
-                                child: LeagueCard(
-                                    logoUrl: item.logoUrl,
-                                    teamName: item.name,
-                                    isSelected: item.isAddedToFavorite),
-                              );
-                            },
-                          ),
-                          scrollDirection: Axis.horizontal,
-
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            childAspectRatio: 1.5,
-                            crossAxisCount: 2, // number of items in each row
-                            mainAxisSpacing: 30.0, // spacing between rows
-                            crossAxisSpacing: 30.0,
-                          ), //
-                        ),
-                      ),
-                      const SizedBox(
-                        height: 32,
-                      ),
-                    ],
+            slivers: [
+              SliverFillRemaining(
+                child: Center(
+                  child: EmptySearchResult(
+                    query: _textController.text,
+                    text: "favoriteClubMatchNotFound".tr(),
                   ),
                 ),
+              )
+            ],
+          )
+              : SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(
+                  height: 32,
+                ),
+                SizedBox(
+                  height: 400,
+                  child: Builder(
+                    builder: (context) {
+                      if ((pagingState.pages?.isEmpty ?? true) && (pagingState.isLoading ?? false)) {
+                        return Center(
+                          child: Container(
+                              margin: const EdgeInsets.only(top: 10),
+                              height: 24,
+                              width: 24,
+                              child: const CircularProgressIndicator()),
+                        );
+                      }
+
+                      final List<Team> allTeams = pagingState.items?.toList() ?? [];
+
+                      return GridView.builder(
+                        scrollDirection: Axis.horizontal,
+                        itemCount: allTeams.length + ((pagingState.hasNextPage ?? false) ? 1 : 0),
+                        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                          childAspectRatio: 1.5,
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 30.0,
+                          crossAxisSpacing: 30.0,
+                        ),
+                        itemBuilder: (context, index) {
+                          if (index == allTeams.length) {
+                            if (!(pagingState.isLoading ?? true)) {
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                _pagingController.fetchNextPage();
+                              });
+                            }
+                            
+                            return Center(
+                              child: Container(
+                                margin: const EdgeInsets.all(15),
+                                height: 30,
+                                width: 30,
+                                child: const CircularProgressIndicator(),
+                              ),
+                            );
+                          }
+                          
+                          final item = allTeams[index];
+                          return GestureDetector(
+                            onTap: () {
+                              context.read<ProfileProvider>().toggleTeam(item);
+                            },
+                            child: LeagueCard(
+                              logoUrl: item.logoUrl,
+                              teamName: item.name,
+                              isSelected: item.isAddedToFavorite,
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  ),
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+              ],
+            ),
+          ),
         )
       ],
     );

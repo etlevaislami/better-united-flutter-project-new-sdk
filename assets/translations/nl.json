@@ -375,5 +375,7 @@
   "settingsPushOption5": "Account notificaties",
   "noInternetConnection": "Geen internetverbinding",
   "accessTokenExpired": "Toegang verlopen, log opnieuw in",
-  "tutorial_start_description": "Stap in de wereld van Better United, een wereld waarin jouw wedstrijdvoorspellingen voor spanning zorgen en de legendes van de club tot leven komen!"
+  "tutorial_start_description": "Stap in de wereld van Better United, een wereld waarin jouw wedstrijdvoorspellingen voor spanning zorgen en de legendes van de club tot leven komen!",
+  "teamOfTheWeekMultiLine": "TEAM OF THE\nWEEK",
+  "teamOfTheSeasonMultiLine": "TEAM OF THE\nSEASON"
 }
