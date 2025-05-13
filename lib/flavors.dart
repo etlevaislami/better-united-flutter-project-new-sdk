@@ -30,7 +30,7 @@ class F {
         return 'https://api.better-united.com/api';
       case Flavor.dev:
       default:
-        return 'https://better-united-api.development.d-tt.dev/api';
+        return 'https://better-united-api.acceptance.d-tt.dev/api';
     }
   }
 

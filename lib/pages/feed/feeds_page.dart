@@ -1,4 +1,5 @@
-import 'package:appinio_video_player/appinio_video_player.dart';
+import 'package:chewie/chewie.dart';
+import 'package:video_player/video_player.dart';
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -40,12 +41,10 @@ class _FeedsPageState extends State<FeedsPage> {
   final double appBarHeight = 180;
   final double videoItemHeight = 280;
   static const int undefinedIndex = -1;
-  final CustomVideoPlayerSettings _customVideoPlayerSettings =
-      const CustomVideoPlayerSettings(settingsButtonAvailable: false);
   late FeedProvider _feedProvider;
   late String title;
-  late CachedVideoPlayerController _videoPlayerController;
-  late CustomVideoPlayerController _customVideoPlayerController;
+  late VideoPlayerController _videoPlayerController;
+  late ChewieController _customVideoPlayerController;
   int playingVideoIndex = undefinedIndex;
   bool isLoading = false;
 
@@ -55,9 +54,9 @@ class _FeedsPageState extends State<FeedsPage> {
     _feedProvider = FeedProvider(context.read(), context.read());
     _feedProvider.getAllVideos().then(
           (value) => WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-            _handleDeeplink();
-          }),
-        );
+        _handleDeeplink();
+      }),
+    );
     _feedProvider.getCategories();
     _setupInitialVideoPlayer();
   }
@@ -122,7 +121,7 @@ class _FeedsPageState extends State<FeedsPage> {
               padding: const EdgeInsets.only(bottom: 80),
               sliver: SliverList(
                 delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
+                      (BuildContext context, int index) {
                     final Video video = data.item1[index];
                     return AutoScrollTag(
                       key: ValueKey(index),
@@ -132,7 +131,7 @@ class _FeedsPageState extends State<FeedsPage> {
                         padding: const EdgeInsets.only(bottom: 24),
                         child: VideoWidget(
                           customVideoPlayerController:
-                              _customVideoPlayerController,
+                          _customVideoPlayerController,
                           isliked: video.isLiked,
                           isLoading: isLoading,
                           isPlaying: playingVideoIndex == index,
@@ -228,7 +227,7 @@ class _FeedsPageState extends State<FeedsPage> {
                   child: index == 0
                       ? _buildRecentWidget(context, selectedCategoryId == null)
                       : _buildFeedCategory(
-                          context, categories[index - 1], selectedCategoryId),
+                      context, categories[index - 1], selectedCategoryId),
                 );
               },
               scrollDirection: Axis.horizontal,
@@ -246,11 +245,12 @@ class _FeedsPageState extends State<FeedsPage> {
   }
 
   _setupInitialVideoPlayer() {
-    _videoPlayerController = CachedVideoPlayerController.network("");
-    _customVideoPlayerController = CustomVideoPlayerController(
-      context: context,
+    _videoPlayerController = VideoPlayerController.network("");
+    _customVideoPlayerController = ChewieController(
       videoPlayerController: _videoPlayerController,
-      customVideoPlayerSettings: _customVideoPlayerSettings,
+      autoPlay: false,
+      looping: false,
+      showControls: true,
     );
   }
 
@@ -259,16 +259,17 @@ class _FeedsPageState extends State<FeedsPage> {
       isLoading = true;
       playingVideoIndex = videoIndex;
     });
-    _videoPlayerController = CachedVideoPlayerController.network(url);
+    _videoPlayerController = VideoPlayerController.network(url);
     await _videoPlayerController.initialize();
-    _customVideoPlayerController = CustomVideoPlayerController(
-      context: context,
+    _customVideoPlayerController = ChewieController(
       videoPlayerController: _videoPlayerController,
-      customVideoPlayerSettings: _customVideoPlayerSettings,
+      autoPlay: true,
+      looping: false,
+      showControls: true,
+      allowFullScreen: true,
     );
     setState(() {
       isLoading = false;
-      _videoPlayerController.play();
     });
   }
 
@@ -313,13 +314,13 @@ class _FeedsPageState extends State<FeedsPage> {
 
   _startFullScreenVideo(int index, Video video) {
     _startVideo(video.videoUrl, index).then(
-      (_) => _customVideoPlayerController.setFullscreen(true),
+          (_) => _customVideoPlayerController.enterFullScreen(),
     );
   }
 
   _shareLink(Video video) async {
     Uri? shortLink =
-        await _feedProvider.createVideoReferralLink(videoId: video.id);
+    await _feedProvider.createVideoReferralLink(videoId: video.id);
     if (shortLink != null) {
       Share.share("${video.title}\n$shortLink");
     }

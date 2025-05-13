@@ -1,4 +1,5 @@
-import 'package:appinio_video_player/appinio_video_player.dart';
+import 'package:chewie/chewie.dart';
+import 'package:video_player/video_player.dart';
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -12,15 +13,15 @@ import '../../util/date_util.dart';
 class VideoWidget extends StatelessWidget {
   const VideoWidget(
       {Key? key,
-      required this.isPlaying,
-      required this.isLoading,
-      required this.customVideoPlayerController,
-      required this.video,
-      required this.isliked,
-      required this.onLikeTap,
-      required this.onPlayTap,
-      required this.onFullscreenTap,
-      required this.onShareTap})
+        required this.isPlaying,
+        required this.isLoading,
+        required this.customVideoPlayerController,
+        required this.video,
+        required this.isliked,
+        required this.onLikeTap,
+        required this.onPlayTap,
+        required this.onFullscreenTap,
+        required this.onShareTap})
       : super(key: key);
 
   final bool isPlaying;
@@ -32,7 +33,7 @@ class VideoWidget extends StatelessWidget {
   final Function(Video video) onFullscreenTap;
   final Function(Video video) onShareTap;
 
-  final CustomVideoPlayerController customVideoPlayerController;
+  final ChewieController customVideoPlayerController;
 
   @override
   Widget build(BuildContext context) {
@@ -51,24 +52,23 @@ class VideoWidget extends StatelessWidget {
           children: [
             (isPlaying && isLoading)
                 ? Container(
-                    alignment: Alignment.center,
-                    color: Colors.black,
-                    height: 180,
-                    child: const SpinKitThreeBounce(
-                      color: Colors.white,
-                      size: 25.0,
-                    ),
-                  )
+              alignment: Alignment.center,
+              color: Colors.black,
+              height: 180,
+              child: const SpinKitThreeBounce(
+                color: Colors.white,
+                size: 25.0,
+              ),
+            )
                 : SizedBox(
-                    width: double.infinity,
-                    height: 180,
-                    child: isPlaying
-                        ? CustomVideoPlayer(
-                            customVideoPlayerController:
-                                customVideoPlayerController,
-                          )
-                        : _buildPlaceHolderVideo(context),
-                  ),
+              width: double.infinity,
+              height: 180,
+              child: isPlaying
+                  ? Chewie(
+                controller: customVideoPlayerController,
+              )
+                  : _buildPlaceHolderVideo(context),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               child: Column(
@@ -151,7 +151,7 @@ class VideoWidget extends StatelessWidget {
                     onTap: () => onFullscreenTap.call(video),
                     child: const Padding(
                         padding:
-                            EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
+                        EdgeInsets.symmetric(horizontal: 16.0, vertical: 8),
                         child: Icon(
                           BetterUnited.fullscreen,
                           size: 18,

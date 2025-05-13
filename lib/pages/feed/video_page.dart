@@ -1,4 +1,5 @@
-import 'package:appinio_video_player/appinio_video_player.dart';
+import 'package:chewie/chewie.dart';
+import 'package:video_player/video_player.dart';
 import 'package:awesome_extensions/awesome_extensions.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_better_united/pages/feed/video_widget.dart';
@@ -27,10 +28,8 @@ class VideoPage extends StatefulWidget {
 
 class _VideoPageState extends State<VideoPage> {
   late Video video;
-  late CachedVideoPlayerController _videoPlayerController;
-  late CustomVideoPlayerController _customVideoPlayerController;
-  final CustomVideoPlayerSettings _customVideoPlayerSettings =
-      const CustomVideoPlayerSettings(settingsButtonAvailable: false);
+  late VideoPlayerController _videoPlayerController;
+  late ChewieController _customVideoPlayerController;
   bool isPlaying = false;
   bool isLoading = false;
   late FeedProvider _feedProvider;
@@ -67,11 +66,11 @@ class _VideoPageState extends State<VideoPage> {
             ),
             Expanded(
               child: SingleChildScrollView(
-              child: Selector<FeedProvider, bool>(
-                selector: (p0, p1) => p1.observeLikeChange,
-                builder: (context, _, child) => Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: VideoWidget(
+                child: Selector<FeedProvider, bool>(
+                  selector: (p0, p1) => p1.observeLikeChange,
+                  builder: (context, _, child) => Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: VideoWidget(
                       customVideoPlayerController: _customVideoPlayerController,
                       isliked: video.isLiked,
                       isLoading: isLoading,
@@ -101,15 +100,16 @@ class _VideoPageState extends State<VideoPage> {
   }
 
   _startFullScreen() {
-    _playVideo().then((_) => _customVideoPlayerController.setFullscreen(true));
+    _playVideo().then((_) => _customVideoPlayerController.enterFullScreen());
   }
 
   _setupInitialVideoPlayer() {
-    _videoPlayerController = CachedVideoPlayerController.network("");
-    _customVideoPlayerController = CustomVideoPlayerController(
-      context: context,
+    _videoPlayerController = VideoPlayerController.network("");
+    _customVideoPlayerController = ChewieController(
       videoPlayerController: _videoPlayerController,
-      customVideoPlayerSettings: _customVideoPlayerSettings,
+      autoPlay: false,
+      looping: false,
+      showControls: true,
     );
   }
 
@@ -119,22 +119,23 @@ class _VideoPageState extends State<VideoPage> {
       isPlaying = true;
     });
     _videoPlayerController =
-        CachedVideoPlayerController.network(video.videoUrl);
+        VideoPlayerController.network(video.videoUrl);
     await _videoPlayerController.initialize();
-    _customVideoPlayerController = CustomVideoPlayerController(
-      context: context,
+    _customVideoPlayerController = ChewieController(
       videoPlayerController: _videoPlayerController,
-      customVideoPlayerSettings: _customVideoPlayerSettings,
+      autoPlay: true,
+      looping: false,
+      showControls: true,
+      allowFullScreen: true,
     );
     setState(() {
       isLoading = false;
-      _videoPlayerController.play();
     });
   }
 
   _shareLink(Video video) async {
     Uri? shortLink =
-        await _feedProvider.createVideoReferralLink(videoId: video.id);
+    await _feedProvider.createVideoReferralLink(videoId: video.id);
     if (shortLink != null) {
       Share.share("${video.title}\n$shortLink");
     }
