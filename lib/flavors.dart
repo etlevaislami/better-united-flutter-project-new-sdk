@@ -27,10 +27,10 @@ class F {
       case Flavor.staging:
         return 'https://better-united-api.acceptance.d-tt.dev/api';
       case Flavor.prod:
-        return 'https://api.better-united.com/api';
+        return 'https://better-united-api.acceptance.d-tt.dev/api';
       case Flavor.dev:
       default:
-        return 'https://better-united-api.acceptance.d-tt.dev/api';
+        return 'https://better-united-api.development.d-tt.dev/api';
     }
   }
 
