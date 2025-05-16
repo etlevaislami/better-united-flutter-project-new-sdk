@@ -4,7 +4,9 @@ import 'dart:io';
 import 'package:flutter_better_united/data/repo/shop_repository.dart';
 import 'package:flutter_better_united/pages/shop/user_provider.dart';
 import 'package:in_app_purchase/in_app_purchase.dart';
+import 'package:in_app_purchase_android/billing_client_wrappers.dart';
 import 'package:in_app_purchase_android/in_app_purchase_android.dart';
+import 'package:in_app_purchase_storekit/in_app_purchase_storekit.dart';
 import 'package:in_app_purchase_storekit/store_kit_wrappers.dart';
 
 import '../../data/model/power_up.dart';
@@ -83,7 +85,7 @@ class PurchaseManager {
   Future<void> buyCoins(PurchasableCoins product) async {
     await _finishUnfinishedIosTransactions();
     final productDetails =
-        _products.firstWhere((element) => element.id == product.id);
+    _products.firstWhere((element) => element.id == product.id);
     final purchaseParam = PurchaseParam(productDetails: productDetails);
     await _inAppPurchase.buyConsumable(purchaseParam: purchaseParam);
   }
@@ -146,7 +148,7 @@ class PurchaseManager {
       return;
     }
 
-    final ProductDetailsResponse productDetailResponse = await _inAppPurchase.queryProductDetails({..._productIds});
+    final ProductDetailsResponse productDetailResponse = await _inAppPurchase.queryProductDetails(Set<String>.from(_productIds));
     if (productDetailResponse.error == null ||
         productDetailResponse.productDetails.isEmpty) {
       _isStoreAvailable = isAvailable;
@@ -162,6 +164,10 @@ class PurchaseManager {
 
   Future<void> _finishUnfinishedIosTransactions() async {
     if (_isStoreAvailable && Platform.isIOS) {
+      final InAppPurchaseStoreKitPlatformAddition iosPlatformAddition =
+      _inAppPurchase.getPlatformAddition<InAppPurchaseStoreKitPlatformAddition>();
+      await iosPlatformAddition.setDelegate(null);
+
       final paymentWrapper = SKPaymentQueueWrapper();
       final transactions = await paymentWrapper.transactions();
 

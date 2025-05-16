@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_better_united/data/enum/poule_type.dart';
 import 'package:flutter_better_united/pages/tip/tip_provider.dart';
@@ -13,7 +14,6 @@ import '../../widgets/result_counter_widget.dart';
 
 class TipList extends StatefulWidget {
   TipList({
-    Key? key,
     required this.filterCriteria,
     this.scrollController,
     this.isRefreshEnabled = false,
@@ -24,7 +24,7 @@ class TipList extends StatefulWidget {
     required this.pouleName,
     required this.pouleType,
     this.onProfileTap,
-  }) : super(key: key);
+  }) : super(key: ObjectKey(filterCriteria));
 
   final FilterCriteria filterCriteria;
   final ScrollController? scrollController;
@@ -53,22 +53,22 @@ class _TipListState extends State<TipList> {
       filterCriteria: widget.filterCriteria,
     );
     _pagingController = PagingController<int, TipDetail>(
-      getNextPageKey: (state) {
-        final keys = state.keys;
-        if (keys == null || keys.isEmpty) return 1;
-        return keys.last + 1;
-      },
-      fetchPage: (pageKey) async {
-        if (!mounted) return <TipDetail>[];
-        return await _tipProvider.fetchPage(pageKey);
-      },
+      getNextPageKey:
+          (state) => state.keys?.last != null ? state.keys!.last + 1 : 1,
+      fetchPage: (pageKey) => _tipProvider.getTips(pageNumber: pageKey),
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (mounted) {
+        _tipProvider.getTips(pageNumber: 1);
+      }
+    });
   }
 
   @override
   void dispose() {
-    _pagingController.dispose();
     super.dispose();
+    _pagingController.dispose();
   }
 
   @override
@@ -89,14 +89,13 @@ class _TipListState extends State<TipList> {
           }
           return widget.isRefreshEnabled
               ? RefreshIndicator(
-                  triggerMode: RefreshIndicatorTriggerMode.anywhere,
-                  onRefresh: () => Future.sync(
-                    () {
+                triggerMode: RefreshIndicatorTriggerMode.anywhere,
+                onRefresh:
+                    () => Future.sync(() {
                       _tipProvider.refreshTips();
-                    },
-                  ),
-                  child: _buildPagedListView(pagingState, totalItemCount),
-                )
+                    }),
+                child: _buildPagedListView(pagingState, totalItemCount),
+              )
               : _buildPagedListView(pagingState, totalItemCount);
         },
       ),
@@ -104,70 +103,106 @@ class _TipListState extends State<TipList> {
   }
 
   Widget _buildPagedSliverList(
-      PagingState<int, TipDetail> pagingState, int totalItemCount) {
-    return pagingState.status == PagingStatus.noItemsFound
-        ? SliverFillRemaining(
-            child: widget.emptyWidget,
-          )
+    PagingState<int, TipDetail> pagingState,
+    int totalItemCount,
+  ) {
+    if (_pagingController.value != pagingState) {
+      _pagingController.value = pagingState;
+    }
+
+    final bool noItemsFound =
+        pagingState.pages == null || pagingState.pages!.isEmpty;
+
+    return noItemsFound
+        ? SliverFillRemaining(child: widget.emptyWidget)
         : MultiSliver(
-            children: [
-              SliverPinnedHeader(
-                  child: widget.displayResultCount
+          children: [
+            SliverPinnedHeader(
+              child:
+                  widget.displayResultCount
                       ? ResultCounterWidget(count: totalItemCount)
-                      : const SizedBox()),
-              PagedSliverList.separated(
-                state: pagingState,
-                fetchNextPage: () => _pagingController.fetchNextPage(),
-                builderDelegate: PagedChildBuilderDelegate<TipDetail>(
-                  noItemsFoundIndicatorBuilder: (context) =>
-                      Center(child: widget.emptyWidget),
-                  firstPageProgressIndicatorBuilder: (context) => Center(
-                    child: Container(
-                        margin: const EdgeInsets.only(top: 10),
-                        height: 24,
-                        width: 24,
-                        child: const CircularProgressIndicator()),
+                      : const SizedBox(),
+            ),
+            PagingListener(
+              controller: _pagingController,
+              builder: (context, state, fetchNextPage) {
+                return PagedSliverList.separated(
+                  state: state,
+                  fetchNextPage: fetchNextPage,
+                  builderDelegate: PagedChildBuilderDelegate<TipDetail>(
+                    noItemsFoundIndicatorBuilder:
+                        (context) => Center(child: widget.emptyWidget),
+                    firstPageProgressIndicatorBuilder:
+                        (context) => Center(
+                          child: Container(
+                            margin: const EdgeInsets.only(top: 10),
+                            height: 24,
+                            width: 24,
+                            child: const CircularProgressIndicator(),
+                          ),
+                        ),
+                    itemBuilder: _getTipBuilder(),
                   ),
-                  itemBuilder: _getTipBuilder(),
-                ),
-                separatorBuilder: (BuildContext context, int index) =>
-                    const SizedBox(
-                  height: 16,
-                ),
-              ),
-            ],
-          );
+                  separatorBuilder:
+                      (BuildContext context, int index) =>
+                          const SizedBox(height: 16),
+                );
+              },
+            ),
+          ],
+        );
   }
 
   Widget _buildPagedListView(
-      PagingState<int, TipDetail> pagingState, int totalItemCount) {
-    return PagedListView.separated(
-      scrollController: widget.scrollController,
-      builderDelegate: PagedChildBuilderDelegate<TipDetail>(
-        newPageErrorIndicatorBuilder: (context) {
-          return const SizedBox();
-        },
-        firstPageErrorIndicatorBuilder: (context) {
-          return const SizedBox();
-        },
-        noItemsFoundIndicatorBuilder: (context) =>
-            widget.emptyWidget ?? const SizedBox(),
-        firstPageProgressIndicatorBuilder: (context) => Center(
-          child: Container(
-              margin: const EdgeInsets.only(top: 10),
-              height: 24,
-              width: 24,
-              child: const CircularProgressIndicator()),
-        ),
-        itemBuilder: _getTipBuilder(),
-      ),
-      padding: const EdgeInsets.only(bottom: 50),
-      shrinkWrap: true,
-      separatorBuilder: (BuildContext context, int index) => const SizedBox(
-        height: 16,
-      ),
-      state: pagingState,
-      fetchNextPage: () => _pagingController.fetchNextPage(),
+    PagingState<int, TipDetail> pagingState,
+    int totalItemCount,
+  ) {
+
+    if (_pagingController.value != pagingState) {
+      _pagingController.value = pagingState;
+    }
+
+    final itemsLength =
+        pagingState.pages?.fold<int>(0, (prev, page) => prev + page.length) ??
+        0;
+
+    if (kDebugMode) {
+      print("Tips count: $itemsLength");
+    }
+
+    return PagingListener(
+      controller: _pagingController,
+      builder: (context, state, fetchNextPage) {
+        return PagedListView.separated(
+          state: state,
+          fetchNextPage: fetchNextPage,
+          scrollController: widget.scrollController,
+          builderDelegate: PagedChildBuilderDelegate<TipDetail>(
+            newPageErrorIndicatorBuilder: (context) {
+              return const SizedBox();
+            },
+            firstPageErrorIndicatorBuilder: (context) {
+              return const SizedBox();
+            },
+            noItemsFoundIndicatorBuilder:
+                (context) => widget.emptyWidget ?? const SizedBox(),
+            firstPageProgressIndicatorBuilder:
+                (context) => Center(
+                  child: Container(
+                    margin: const EdgeInsets.only(top: 10),
+                    height: 24,
+                    width: 24,
+                    child: const CircularProgressIndicator(),
+                  ),
+                ),
+            itemBuilder: _getTipBuilder(),
+          ),
+          padding: const EdgeInsets.only(bottom: 50),
+          shrinkWrap: true,
+          separatorBuilder:
+              (BuildContext context, int index) => const SizedBox(height: 16),
+        );
+      },
     );
   }
 

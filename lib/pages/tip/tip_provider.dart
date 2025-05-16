@@ -18,15 +18,6 @@ class TipProvider with ChangeNotifier {
   TipProvider(this._tipRepository, this._userProvider,
       {required this.filterCriteria});
 
-  Future<List<TipDetail>> fetchPage(int pageKey) async {
-    await getTips(pageNumber: pageKey);
-    final pages = pagingState.pages;
-    if (pages != null && pages.isNotEmpty) {
-      return pages.last;
-    }
-    return <TipDetail>[];
-  }
-
   clearTips() {
     pagingState = PagingState<int, TipDetail>();
   }
@@ -40,6 +31,9 @@ class TipProvider with ChangeNotifier {
 
   getTips({required int pageNumber}) async {
     try {
+      pagingState = pagingState.copyWith(isLoading: true);
+      notifyListeners();
+
       final paginatedTips = await _tipRepository.getTips(
           date: filterCriteria.matchDay,
           leagueId: filterCriteria.leagueId,
@@ -57,16 +51,20 @@ class TipProvider with ChangeNotifier {
           onlyOthers: filterCriteria.onlyOthers,
           publicLeagueId: filterCriteria.publicLeagueId);
 
-      final List<List<TipDetail>> pages = List.from(pagingState.pages ?? []);
-      final List<int> keys = List.from(pagingState.keys ?? []);
-      if (paginatedTips.data.isNotEmpty) {
-        pages.add(paginatedTips.data);
-        keys.add(pageNumber);
+      final List<List<TipDetail>> currentPages = List<List<TipDetail>>.from(pagingState.pages ?? []);
+      final List<int> currentKeys = List<int>.from(pagingState.keys ?? []);
+
+      if (pageNumber == 1) {
+        currentPages.clear();
+        currentKeys.clear();
       }
 
+      currentPages.add(paginatedTips.data);
+      currentKeys.add(pageNumber);
+
       pagingState = PagingState<int, TipDetail>(
-        pages: pages,
-        keys: keys,
+        pages: currentPages,
+        keys: currentKeys,
         error: null,
         hasNextPage: !paginatedTips.isLastPage(),
         isLoading: false,
@@ -86,13 +84,20 @@ class TipProvider with ChangeNotifier {
   }
 
   _refreshTip() {
-    pagingState = PagingState<int, TipDetail>(
-      pages: List.of(pagingState.pages ?? []),
-      keys: List.of(pagingState.keys ?? []),
-      error: pagingState.error,
-      hasNextPage: pagingState.hasNextPage,
-      isLoading: false,
-    );
+    List<List<TipDetail>>? newPages;
+    if (pagingState.pages != null) {
+      newPages = [];
+      for (var page in pagingState.pages!) {
+        newPages.add(List.of(page));
+      }
+    }
+
+    pagingState = PagingState(
+        pages: newPages,
+        keys: pagingState.keys != null ? List.of(pagingState.keys!) : null,
+        error: pagingState.error,
+        hasNextPage: pagingState.hasNextPage,
+        isLoading: pagingState.isLoading);
     notifyListeners();
   }
 
@@ -103,10 +108,12 @@ class TipProvider with ChangeNotifier {
   }
 
   updateFollowingStatus(int userId, bool isFollowing) {
-    for (final page in pagingState.pages ?? []) {
-      for (final tipDetail in page) {
-        if (tipDetail.userId == userId) {
-          tipDetail.isFollowingAuthor = isFollowing;
+    if (pagingState.pages != null) {
+      for (var page in pagingState.pages!) {
+        for (var tipDetail in page) {
+          if (tipDetail.userId == userId) {
+            tipDetail.isFollowingAuthor = isFollowing;
+          }
         }
       }
     }
@@ -125,7 +132,7 @@ class TipProvider with ChangeNotifier {
       if (elapsedTime < minimumDelay) {
         await Future.delayed(Duration(
             milliseconds:
-                minimumDelay.inMilliseconds - elapsedTime.inMilliseconds));
+            minimumDelay.inMilliseconds - elapsedTime.inMilliseconds));
       }
       _refreshTip();
       await Future.delayed(minimumDelay);
