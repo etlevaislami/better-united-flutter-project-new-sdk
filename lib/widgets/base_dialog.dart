@@ -75,11 +75,11 @@ class BaseDialog extends StatelessWidget {
                           constraints: BoxConstraints(
                             maxWidth: context.width,
                             minWidth: context.width,
-                            maxHeight: context.height * 0.42,
+                            maxHeight: context.height * 0.65,
                             minHeight: circleHeight,
                           ),
                           child: SizedBox(
-                            width: context.width,
+                            width: context.width * 0.95,
                             child: Padding(
                               padding: EdgeInsets.only(top: imageHeight / 2),
                               child: child,

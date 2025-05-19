@@ -41,48 +41,44 @@ class WelcomeToPouleDialog extends StatelessWidget {
           scale: 1.2,
           child: Image.asset("assets/images/img_league.png"),
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            const SizedBox(
-              height: 32,
-            ),
-            WelcomeToWidget(name: pouleName),
-            const SizedBox(
-              height: 6,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: Text(
-                "claimPouleTopSpot".tr(),
-                textAlign: TextAlign.center,
-                style: context.bodyRegularWhite,
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 32),
+              WelcomeToWidget(name: pouleName),
+              const SizedBox(height: 6),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  "claimPouleTopSpot".tr(),
+                  textAlign: TextAlign.center,
+                  style: context.bodyRegularWhite,
+                ),
               ),
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 8.0),
-              child: PrimaryButton(
-                confineInSafeArea: false,
-                text: "challengeMyFriends".tr(),
+              const SizedBox(height: 24),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                child: PrimaryButton(
+                  confineInSafeArea: false,
+                  text: "challengeMyFriends".tr(),
+                  onPressed: () {
+                    context.pop(WelcomeToPouleDialogAction.challengeFriends);
+                  },
+                ),
+              ),
+              const SizedBox(height: 8),
+              SecondaryButton.labelText(
+                "backToOverview".tr(),
+                withUnderline: true,
                 onPressed: () {
-                  context.pop(WelcomeToPouleDialogAction.challengeFriends);
+                  context.pop(WelcomeToPouleDialogAction.backToOverview);
                 },
               ),
-            ),
-            const SizedBox(
-              height: 10,
-            ),
-            SecondaryButton.labelText("backToOverview".tr(),
-                withUnderline: true, onPressed: () {
-              context.pop(WelcomeToPouleDialogAction.backToOverview);
-            }),
-            const SizedBox(
-              height: 10,
-            ),
-          ],
+              const SizedBox(height: 8),
+            ],
+          ),
         ),
       ),
     );
