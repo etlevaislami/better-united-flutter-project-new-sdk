@@ -126,7 +126,7 @@ class _RuleWidget extends StatelessWidget {
             width: double.infinity,
             color: AppColors.background,
             child: Text(
-              description.toUpperCase(),
+              description,
               textAlign: TextAlign.center,
               style: AppTextStyles.textStyle3,
             ),
