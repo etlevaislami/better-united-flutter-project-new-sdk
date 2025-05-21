@@ -22,14 +22,14 @@ class TipProvider with ChangeNotifier {
     pagingState = PagingState<int, TipDetail>();
   }
 
-  updateFilterCriteria(FilterCriteria filterCriteria) {
+  Future<void> updateFilterCriteria(FilterCriteria filterCriteria) async {
     this.filterCriteria = filterCriteria;
     clearTips();
     notifyListeners();
-    getTips(pageNumber: 1);
+    await getTips(pageNumber: 1);
   }
 
-  getTips({required int pageNumber}) async {
+  Future<List<TipDetail>> getTips({required int pageNumber}) async {
     try {
       pagingState = pagingState.copyWith(isLoading: true);
       notifyListeners();
@@ -71,6 +71,7 @@ class TipProvider with ChangeNotifier {
       );
       totalItemCount = paginatedTips.totalItemCount;
       notifyListeners();
+      return paginatedTips.data;
     } catch (error) {
       pagingState = PagingState<int, TipDetail>(
         pages: pagingState.pages,
@@ -80,6 +81,7 @@ class TipProvider with ChangeNotifier {
         isLoading: false,
       );
       notifyListeners();
+      rethrow;
     }
   }
 
@@ -101,10 +103,10 @@ class TipProvider with ChangeNotifier {
     notifyListeners();
   }
 
-  refreshTips() {
+  Future<List<TipDetail>> refreshTips() async {
     pagingState = PagingState<int, TipDetail>();
     notifyListeners();
-    getTips(pageNumber: 1);
+    return await getTips(pageNumber: 1);
   }
 
   updateFollowingStatus(int userId, bool isFollowing) {
