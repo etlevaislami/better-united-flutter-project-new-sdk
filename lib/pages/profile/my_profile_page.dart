@@ -15,6 +15,7 @@ import 'package:provider/provider.dart';
 import 'package:sliver_tools/sliver_tools.dart';
 
 import '../../figma/colors.dart';
+import '../../util/level_name_mapper.dart';
 import '../../widgets/background_container.dart';
 import '../../widgets/fixed_button.dart';
 import '../../widgets/header_text.dart';
@@ -411,11 +412,13 @@ class _UserProfileCard extends StatelessWidget {
                                     style: context.titleH2,
                                   ),
                                   Text(
-                                    (user.rewardTitle ?? "undefined".tr())
-                                        .toUpperCase(),
+                                    (user.rewardTitle != null
+                                        ? mapLevelNameToKey(user.rewardTitle!).tr()
+                                        : "undefined".tr()),
                                     style: context.labelBold.copyWith(
-                                        color: Colors.white.withOpacity(0.5)),
-                                  ),
+                                      color: Colors.white.withOpacity(0.5),
+                                    ),
+                                  )
                                 ],
                                 crossAxisAlignment: CrossAxisAlignment.start,
                               ),
