@@ -91,7 +91,7 @@ class _MyProfileNewState extends State<MyProfilePage>
                 padding: const EdgeInsets.symmetric(horizontal: 24),
                 sliver: SliverPinnedHeader(
                     child: CustomTabBar(
-                  firstTabText: "Statistics",
+                  firstTabText:"statics_profile".tr() ,
                   secondTabText: "Achievements",
                   tabController: _tabController,
                 )),
@@ -288,7 +288,7 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
                               )),
                         ),
                       )),
-                  text: 'My friends',
+                  text: "my_friends_profile".tr(),
                   confineInSafeArea: false,
                   onPressed: () {
                     Navigator.of(context, rootNavigator: true)
@@ -301,7 +301,7 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
                 Expanded(
                     child: _Button(
                   group: autoSizeGroup,
-                  text: 'My favorite clubs',
+                  text: "my_favorite_club_profile".tr(),
                   prefixIcon: Align(
                       alignment: Alignment.centerLeft,
                       child: ClipRRect(

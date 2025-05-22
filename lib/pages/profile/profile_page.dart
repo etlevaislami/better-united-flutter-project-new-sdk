@@ -11,6 +11,7 @@ import 'package:flutter_better_united/widgets/primary_button.dart';
 import 'package:flutter_better_united/widgets/regular_app_bar.dart';
 import 'package:provider/provider.dart';
 
+import '../../util/level_name_mapper.dart';
 import '../../widgets/avatar_widget.dart';
 import '../../widgets/background_container.dart';
 import '../../widgets/fixed_button.dart';
@@ -101,11 +102,11 @@ class _StatsWidget extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        "Club legend".toUpperCase(),
+                        (user.rewardTitle != null ? mapLevelNameToKey(user.rewardTitle!).tr() : ""),
                         style: context.bodyBold,
                       ),
                       Text(
-                        "Achieved",
+                        "achieved_profile_details".tr(),
                         style: context.labelSemiBold
                             .copyWith(color: AppColors.primary),
                       ),
@@ -255,7 +256,7 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
                                     style: context.titleH2,
                                   ),
                                   Text(
-                                    (user.rewardTitle ?? "").toUpperCase(),
+                                  (user.rewardTitle != null ? mapLevelNameToKey(user.rewardTitle!).tr() : ""),
                                     style: context.labelBold.copyWith(
                                         color: Colors.white.withOpacity(0.5)),
                                   ),

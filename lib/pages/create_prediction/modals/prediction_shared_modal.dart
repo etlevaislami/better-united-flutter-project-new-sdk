@@ -185,14 +185,15 @@ class _PredictionSharedDialogState extends State<PredictionSharedDialog> {
   }
 
   Widget _buildGuruSection(BuildContext context) {
+    if (!widget.hasBookies) {
+      return const SizedBox.shrink();
+    }
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24.0),
       child: Text(
-        widget.hasBookies
-            ? widget.coins != null
-                ? "andPredictionFromOurGuru".tr().toLowerCase()
-                : "getPredictionFromOurGuru".tr()
-            : "noBookies".tr(),
+        widget.coins != null
+            ? "andPredictionFromOurGuru".tr().toLowerCase()
+            : "getPredictionFromOurGuru".tr(),
         style: context.bodyRegularWhite,
         textAlign: TextAlign.center,
       ),

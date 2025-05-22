@@ -7,6 +7,7 @@ import 'package:flutter_better_united/data/model/reward_level.dart';
 import 'package:flutter_better_united/widgets/primary_button.dart';
 
 import '../figma/colors.dart';
+import '../util/level_name_mapper.dart';
 import 'grey_color_filtered.dart';
 
 class LevelStatusWidget extends StatelessWidget {
@@ -57,7 +58,7 @@ class LevelStatusWidget extends StatelessWidget {
                                     height: 14,
                                   ),
                                   Text(
-                                    rewardLevel.title.toUpperCase(),
+                                    mapLevelNameToKey(rewardLevel.title).tr(),
                                     style: context.labelBold,
                                   ),
                                   Text(

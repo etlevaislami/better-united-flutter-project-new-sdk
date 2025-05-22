@@ -56,7 +56,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24.0),
         child: PrimaryButton(
-          text: "Save changes",
+          text: "save_changes_profile".tr(),
           onPressed: () {
             _onSaveChangesTap();
           },
@@ -79,7 +79,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
               width: 16,
             ),
             Text(
-              "Edit profile".toUpperCase() ?? '',
+              "edit_profile".tr().toUpperCase() ?? '',
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               style: const TextStyle(
@@ -305,7 +305,7 @@ class _InputField extends StatelessWidget {
   Widget build(BuildContext context) {
     final isNicknameInUse = context.watch<UserProvider>().isNicknameInUse;
     return InputField(
-      labelText: "Nickname",
+      labelText: "nickname_profile".tr(),
       controller: _textEditingController,
       errorText: isNicknameInUse ? "nicknameAlreadyTaken".tr() : null,
     );

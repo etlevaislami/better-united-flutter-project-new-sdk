@@ -16,6 +16,7 @@ import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:provider/provider.dart';
 
 import '../../util/betterUnited_icons.dart';
+import '../../util/level_name_mapper.dart';
 import '../../widgets/background_container.dart';
 import '../../widgets/custom_tab_bar.dart';
 import '../../widgets/fixed_button.dart';
@@ -362,7 +363,7 @@ class _RankingOverviewState extends State<_RankingOverview>
                               isConnectedUser: isConnectedUser,
                               level: -1,
                               name: participant.nickname ?? "undefined".tr(),
-                              levelName: participant.levelName,
+                              levelName: mapLevelNameToKey(participant.levelName).tr(),
                               profileUrl: participant.profileIconUrl,
                               points: participant.points,
                               wins: -1,
