@@ -19,13 +19,13 @@
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		A2AFD80C499F970AF51B83A8 /* devDebug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 6EA6662BE7CEF2789FFE3650 /* devDebug.xcconfig */; };
 		AE8B9BAB88B1FA3348F5479D /* stagingLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F5C19DE2EE19675128F3D386 /* stagingLaunchScreen.storyboard */; };
+		B4BEBEED2DE4785500DC3440 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = B4BEBEEC2DE4785500DC3440 /* GoogleService-Info.plist */; };
 		B7CCC57A81CB0F04150D6012 /* stagingDebug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 2CFCC72B7EA668C4CB01FCD7 /* stagingDebug.xcconfig */; };
 		C5596D6A69B6E974B5ABBE87 /* stagingProfile.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 285A685F763DCE1BC8680786 /* stagingProfile.xcconfig */; };
 		CB3A76644670BBD764213F31 /* devLaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = BD9F2962644DB41E7249D5C5 /* devLaunchScreen.storyboard */; };
 		D91C213EC1FB4F4140DD02DC /* stagingRelease.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 0682D89B6470B265E29FC0C8 /* stagingRelease.xcconfig */; };
 		E490B673262A94456477DFC1 /* prodRelease.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D6A0E44E5ABB62A5202D82D2 /* prodRelease.xcconfig */; };
 		EFB666DD57AFA1C5971D1C89 /* devProfile.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 94255C87B4FD0EF6D7005796 /* devProfile.xcconfig */; };
-		F1D2413D964B1661D2DC09FC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1978D26A883569E3DD405834 /* GoogleService-Info.plist */; };
 		FD90BFF6191AB60315156EBE /* prodProfile.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = A378AEC55A5F6D049EBD1DFF /* prodProfile.xcconfig */; };
 		FF9B5B4BA11B90386BF4D68A /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93EBB06A6935980A00A58914 /* Pods_Runner.framework */; };
 /* End PBXBuildFile section */
@@ -48,7 +48,6 @@
 		0682D89B6470B265E29FC0C8 /* stagingRelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = stagingRelease.xcconfig; path = Flutter/stagingRelease.xcconfig; sourceTree = "<group>"; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
-		1978D26A883569E3DD405834 /* GoogleService-Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "Runner/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		285A685F763DCE1BC8680786 /* stagingProfile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = stagingProfile.xcconfig; path = Flutter/stagingProfile.xcconfig; sourceTree = "<group>"; };
 		2CFCC72B7EA668C4CB01FCD7 /* stagingDebug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = stagingDebug.xcconfig; path = Flutter/stagingDebug.xcconfig; sourceTree = "<group>"; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
@@ -79,6 +78,7 @@
 		A378AEC55A5F6D049EBD1DFF /* prodProfile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = prodProfile.xcconfig; path = Flutter/prodProfile.xcconfig; sourceTree = "<group>"; };
 		A6EE57B13A467F8D8E4675A0 /* Pods-Runner.profile-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile-dev.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile-dev.xcconfig"; sourceTree = "<group>"; };
 		B06335FF249AF1563AAD5645 /* Pods-Runner.debug-dev.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug-dev.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug-dev.xcconfig"; sourceTree = "<group>"; };
+		B4BEBEEC2DE4785500DC3440 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		BD9F2962644DB41E7249D5C5 /* devLaunchScreen.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = devLaunchScreen.storyboard; path = Runner/devLaunchScreen.storyboard; sourceTree = "<group>"; };
 		D2BF7EE7604666BCD58E8F83 /* prodLaunchScreen.storyboard */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = file.storyboard; name = prodLaunchScreen.storyboard; path = Runner/prodLaunchScreen.storyboard; sourceTree = "<group>"; };
 		D6A0E44E5ABB62A5202D82D2 /* prodRelease.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = prodRelease.xcconfig; path = Flutter/prodRelease.xcconfig; sourceTree = "<group>"; };
@@ -142,6 +142,7 @@
 		97C146E51CF9000F007C117D = {
 			isa = PBXGroup;
 			children = (
+				B4BEBEEC2DE4785500DC3440 /* GoogleService-Info.plist */,
 				9740EEB11CF90186004384FC /* Flutter */,
 				97C146F01CF9000F007C117D /* Runner */,
 				97C146EF1CF9000F007C117D /* Products */,
@@ -150,7 +151,6 @@
 				D2BF7EE7604666BCD58E8F83 /* prodLaunchScreen.storyboard */,
 				0003D1253FC78A80BE4244D9 /* Pods */,
 				9A933E07B2C0AE5CB26E2189 /* Frameworks */,
-				1978D26A883569E3DD405834 /* GoogleService-Info.plist */,
 			);
 			sourceTree = "<group>";
 		};
@@ -265,11 +265,11 @@
 				D91C213EC1FB4F4140DD02DC /* stagingRelease.xcconfig in Resources */,
 				0D13B1A7334380550D40CB74 /* prodDebug.xcconfig in Resources */,
 				FD90BFF6191AB60315156EBE /* prodProfile.xcconfig in Resources */,
+				B4BEBEED2DE4785500DC3440 /* GoogleService-Info.plist in Resources */,
 				E490B673262A94456477DFC1 /* prodRelease.xcconfig in Resources */,
 				CB3A76644670BBD764213F31 /* devLaunchScreen.storyboard in Resources */,
 				AE8B9BAB88B1FA3348F5479D /* stagingLaunchScreen.storyboard in Resources */,
 				01FACE3F35F5344041C539F6 /* prodLaunchScreen.storyboard in Resources */,
-				F1D2413D964B1661D2DC09FC /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
