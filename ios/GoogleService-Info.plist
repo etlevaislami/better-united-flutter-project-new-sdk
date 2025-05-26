@@ -3,23 +3,23 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>212896725000-cf53ljpg37edflmt1rou299upnb0m1j5.apps.googleusercontent.com</string>
+	<string>701198425538-2o3e9tmrb69jhknqd7aadbodk9solaiu.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.212896725000-cf53ljpg37edflmt1rou299upnb0m1j5</string>
+	<string>com.googleusercontent.apps.701198425538-2o3e9tmrb69jhknqd7aadbodk9solaiu</string>
 	<key>ANDROID_CLIENT_ID</key>
-	<string>212896725000-0m4leved1sl5r57njrcvatsc95jgrin3.apps.googleusercontent.com</string>
+	<string>701198425538-4olandrkdkla1g32heahcejmgr4m98oa.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
-	<string>AIzaSyBmXADGH5WJq-ufcAIUedHG3Qr3kmXoJWI</string>
+	<string>AIzaSyCAcUj95jjAymu0VtMDXkgpXe4XcWBnirw</string>
 	<key>GCM_SENDER_ID</key>
-	<string>212896725000</string>
+	<string>701198425538</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>nl.betterunited</string>
 	<key>PROJECT_ID</key>
-	<string>better-united--dev</string>
+	<string>better-united</string>
 	<key>STORAGE_BUCKET</key>
-	<string>better-united--dev.appspot.com</string>
+	<string>better-united.firebasestorage.app</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:212896725000:ios:7ea45352cdb99779ac79bd</string>
+	<string>1:701198425538:ios:12a65584fd7147bbf64a5b</string>
 </dict>
 </plist>
